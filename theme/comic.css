@@ -1,0 +1,887 @@
+/* Comic Ptero 1.0 — additive theme for Pterodactyl client + AdminLTE admin.
+   No core routes, state, permissions, API calls, or file handlers are replaced. */
+@font-face{font-family:ComicCondensed;src:url('/comic-theme/BarlowCondensed-Bold.ttf') format('truetype');font-display:swap}
+@font-face{font-family:ComicUI;src:url('/comic-theme/Inter.ttf') format('truetype');font-display:swap}
+:root{--comic-bg:#10141c;--comic-card:#1b2431;--comic-raised:#273344;--comic-yellow:#f7ca45;--comic-green:#299c73;--comic-text:#f6f7fb;--comic-muted:#adbacb;--comic-black:#080b10;--comic-red:#d65261}
+html body.comic-ptero{background-color:var(--comic-bg)!important;background-image:radial-gradient(#ffffff09 1px,transparent 1px)!important;background-size:7px 7px;color:var(--comic-text)!important;font-family:ComicUI,Arial,sans-serif}
+.comic-ptero #app{min-height:100vh;background:transparent!important}
+.comic-ptero h1,.comic-ptero h2,.comic-ptero h3,.comic-ptero .font-header,.comic-ptero .box-title,.comic-ptero .modal-title{font-family:ComicCondensed,Impact,'Arial Narrow',sans-serif!important;font-weight:700!important;letter-spacing:.5px;color:var(--comic-text)}
+.comic-ptero h1{font-size:2.6rem!important}.comic-ptero h2{font-size:1.9rem!important}
+.comic-ptero .comic-card,.comic-ptero [class~="bg-neutral-700"],.comic-ptero [class~="bg-neutral-600"],.comic-ptero .box,.comic-ptero .panel,.comic-ptero .small-box,.comic-ptero .info-box{background:var(--comic-card)!important;border:3px solid var(--comic-black)!important;border-radius:12px!important;box-shadow:4px 4px 0 var(--comic-black)!important;color:var(--comic-text)!important}
+.comic-ptero [class~="bg-neutral-800"],.comic-ptero [class~="bg-neutral-900"]{background-color:#141b26!important}
+.comic-ptero [class~="text-neutral-300"],.comic-ptero [class~="text-neutral-400"],.comic-ptero .text-muted{color:var(--comic-muted)!important}
+.comic-ptero button:not([role="switch"]):not(.xterm-helper-textarea),.comic-ptero .btn,.comic-ptero a[class*="Button"]{border:3px solid var(--comic-black)!important;border-radius:9px!important;min-height:42px;font-weight:700;box-shadow:3px 3px 0 var(--comic-black)!important;transition:transform .12s ease,box-shadow .12s ease,background .12s ease!important}
+.comic-ptero button:hover:not(:disabled),.comic-ptero .btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--comic-black)!important}
+.comic-ptero button:active:not(:disabled),.comic-ptero .btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--comic-black)!important}
+.comic-ptero button:disabled{opacity:.45!important}
+.comic-ptero .comic-primary,.comic-ptero .btn-primary,.comic-ptero .btn-info,.comic-ptero button[type="submit"]{background:var(--comic-yellow)!important;color:#111a23!important;background-image:none!important}
+.comic-ptero .comic-success,.comic-ptero .btn-success{background:var(--comic-green)!important;color:#fff!important}
+.comic-ptero .comic-danger,.comic-ptero .btn-danger,.comic-ptero button[class*="danger"],.comic-ptero button[class*="Danger"]{background:#682b38!important;color:#ffc5ca!important}
+.comic-ptero .btn-default{background:#2a3748!important;color:#f6f7fb!important}
+.comic-ptero input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),.comic-ptero textarea:not(.xterm-helper-textarea),.comic-ptero select,.comic-ptero .form-control,.comic-ptero .select2-selection{background:#111a26!important;border:3px solid var(--comic-black)!important;border-radius:8px!important;color:var(--comic-text)!important;min-height:44px;box-shadow:inset 0 1px 0 #ffffff05!important}
+.comic-ptero input::placeholder,.comic-ptero textarea::placeholder{color:#91a1b5!important}
+.comic-ptero input[type="checkbox"],.comic-ptero input[type="radio"]{accent-color:var(--comic-yellow)}
+.comic-ptero label{color:#e0e6ef!important}
+.comic-ptero :is(button,a,input,select,textarea):focus-visible{outline:3px solid var(--comic-yellow)!important;outline-offset:3px!important}
+.comic-ptero .comic-header{background:#161e29!important;border-bottom:3px solid var(--comic-black)!important;box-shadow:0 4px 0 #080b1070!important;padding:12px 16px!important}
+.comic-ptero .comic-header .comic-header-row{height:auto!important;min-height:58px;gap:12px}
+.comic-ptero #logo{min-width:0;flex-shrink:0!important}
+.comic-ptero #logo a{display:inline-block;background:var(--comic-yellow)!important;color:#111b23!important;border:3px solid var(--comic-black)!important;border-radius:10px;box-shadow:4px 4px 0 var(--comic-black);font:700 30px ComicCondensed,Impact!important;padding:9px 17px!important;line-height:1.1;transform:rotate(-1deg);white-space:nowrap}
+.comic-ptero #logo+div{gap:7px!important;align-items:center!important}
+.comic-ptero #logo+div>a,.comic-ptero #logo+div>button,.comic-ptero #logo+div>.navigation-link{min-width:44px!important;min-height:44px!important;height:44px!important;padding:10px!important;border:3px solid var(--comic-black)!important;border-radius:9px!important;background:#2a3547!important;color:#fff!important;box-shadow:3px 3px 0 var(--comic-black)!important}
+.comic-ptero #logo+div>a.active{background:var(--comic-yellow)!important;color:#14202a!important}
+.comic-ptero .comic-subnav{margin:16px auto!important;width:calc(100% - 28px)!important;max-width:1200px;background:#1a2330!important;border:3px solid var(--comic-black)!important;border-radius:11px!important;box-shadow:4px 4px 0 var(--comic-black)!important;overflow-x:auto!important;scrollbar-width:thin;scrollbar-color:#526044 #17212c;-webkit-overflow-scrolling:touch}
+.comic-ptero .comic-subnav>div{padding:7px!important;gap:3px!important;flex-wrap:nowrap!important}
+.comic-ptero .comic-subnav>div>a,.comic-ptero .comic-subnav>div>div{font-weight:650!important;border:2px solid transparent!important;border-radius:7px!important;white-space:nowrap!important;padding:11px 15px!important;min-height:43px}
+.comic-ptero .comic-subnav a.active,.comic-ptero .comic-subnav a[aria-current="page"]{background:var(--comic-yellow)!important;color:#101b23!important;border-color:var(--comic-black)!important;box-shadow:2px 2px 0 #000!important}
+.comic-ptero .comic-subnav a:hover:not(.active){background:#293649!important;color:#fff!important}
+.comic-ptero [class*="file_row"],.comic-ptero .comic-file{border:3px solid var(--comic-black)!important;background:#232f3f!important;border-radius:10px!important;margin-bottom:8px!important;min-height:55px;box-shadow:3px 3px 0 #080b10!important;color:#fff!important}
+.comic-ptero [class*="file_row"]:hover,.comic-ptero .comic-file:hover{background:#2c3b4e!important}
+.comic-ptero [class*="file_row"] a,.comic-ptero .comic-file a{color:#fff!important}
+.comic-ptero svg[data-icon="folder"],.comic-ptero svg[data-icon="folder-open"]{color:var(--comic-yellow)!important}
+.comic-ptero [class*="manager_actions"] button{font-family:ComicCondensed,Impact!important;font-size:17px!important;padding:10px 15px!important}
+.comic-ptero [class*="Dropdown"]{border-radius:10px!important}
+.comic-ptero [role="dialog"]>div,.comic-ptero .modal-content,.comic-ptero .sweet-alert{background:#1b2533!important;border:3px solid var(--comic-black)!important;border-radius:13px!important;color:#fff!important;box-shadow:7px 7px 0 var(--comic-black)!important}
+.comic-ptero .xterm{border:3px solid var(--comic-black);border-radius:11px;background:#0b1119!important;padding:10px;overflow:hidden}
+.comic-ptero .xterm-viewport{background:#0b1119!important}
+.comic-ptero .progress{background:#111923!important;border:2px solid var(--comic-black);border-radius:7px!important}
+.comic-ptero .progress-bar{background:linear-gradient(90deg,var(--comic-yellow),var(--comic-green))!important}
+.comic-ptero .content-wrapper,.comic-ptero .wrapper,.comic-ptero .right-side{background:transparent!important;color:#f4f7fb!important}
+.comic-ptero .main-sidebar{background:#151d28!important;border-right:3px solid var(--comic-black)}
+.comic-ptero .main-header .logo{background:var(--comic-yellow)!important;color:#111b24!important;font:700 31px/50px ComicCondensed,Impact!important;border:3px solid #080b10!important}
+.comic-ptero .main-header .navbar{background:#202b3a!important;border-bottom:3px solid #080b10!important}
+.comic-ptero .sidebar-menu>li>a{margin:5px 8px;border:2px solid transparent!important;border-radius:8px;color:#bdc9d8!important}
+.comic-ptero .sidebar-menu>li.active>a{background:var(--comic-yellow)!important;border-color:var(--comic-black)!important;color:#0d1924!important;font-weight:700;box-shadow:3px 3px 0 #000}
+.comic-ptero .sidebar-menu>li.header{background:transparent!important;color:#8192a6!important;font-size:10px;letter-spacing:1px}
+.comic-ptero .box-header,.comic-ptero .box-footer,.comic-ptero .modal-header,.comic-ptero .modal-footer{background:transparent!important;border-color:#111924!important;color:#fff!important}
+.comic-ptero .table>thead>tr>th,.comic-ptero .table>tbody>tr>td{border-color:#111923!important;color:#d4dfec!important;vertical-align:middle}
+.comic-ptero .table-striped>tbody>tr:nth-of-type(odd){background:#243142!important}
+.comic-ptero .table-hover>tbody>tr:hover{background:#304056!important}
+.comic-ptero .table a{color:var(--comic-yellow)!important}
+.comic-ptero .main-footer{background:#141d29!important;color:#8fa1b7!important;border-color:#080b10!important}
+.comic-ptero .well,.comic-ptero .nav-tabs-custom,.comic-ptero .tab-content{background:#202b39!important;border-color:#080b10!important;color:#dce5ee!important}
+.comic-ptero .nav-tabs-custom>.nav-tabs>li.active>a{background:var(--comic-yellow)!important;color:#17202b!important;border-color:#080b10!important}
+.comic-ptero .alert-success{background:#205f48!important;color:#d9fff0!important;border:3px solid #10271c!important}
+.comic-ptero .alert-info,.comic-ptero .callout-info{background:#263b3d!important;color:#e6f5f4!important;border-color:#101f20!important}
+.comic-ptero .alert-danger,.comic-ptero .alert-warning{background:#612c38!important;color:#ffd7db!important;border:3px solid #270e15!important}
+.comic-ptero .comic-notify-dialog{max-width:480px;width:calc(100% - 32px);padding:25px;background:#1d2938;border:4px solid #080b10;border-radius:13px;box-shadow:7px 7px 0 #080b10;color:white}
+.comic-ptero .comic-notify-dialog::backdrop{background:#000b}
+.comic-ptero .comic-notify-dialog h2{color:var(--comic-yellow)}
+.comic-ptero .comic-notify-dialog p{font-size:13px;margin:15px 0;color:#b8c6d5}
+.comic-ptero .comic-notify-dialog button{padding:9px 18px;background:var(--comic-yellow);color:#0d1820}
+@media(max-width:640px){.comic-ptero .comic-header{padding:12px 14px!important;overflow-x:hidden!important}.comic-ptero .comic-header .comic-header-row{display:flex!important;flex-wrap:nowrap!important;gap:12px!important;height:auto!important;align-items:center!important}.comic-ptero #logo{flex:1 1 auto!important;min-width:0;padding:0 0 0 4px}.comic-ptero #logo a{font-size:26px!important;padding:8px 16px!important;max-width:100%;overflow:hidden;text-overflow:ellipsis}.comic-ptero #logo+div{display:none!important}.comic-ptero .comic-more{display:flex!important}.comic-ptero .comic-subnav{display:none!important}.comic-ptero .comic-subnav>div>a{padding:10px 12px!important;font-size:12px!important}.comic-ptero h1{font-size:2.1rem!important}.comic-ptero [class*="file_row"]{min-height:57px}.comic-ptero [class*="file_row"]>a{padding-left:7px!important;padding-right:4px!important}.comic-ptero [class*="manager_actions"] button{min-height:46px!important}.comic-ptero .content-header{padding-top:24px}.comic-ptero .table-responsive{border-color:#0c1420!important}}
+@media(prefers-reduced-motion:reduce){.comic-ptero *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Mobile three-dot menu + drawer */
+.comic-more{border-radius:11px!important;display:none;flex:0 0 auto;align-items:center;justify-content:center;width:48px;height:48px;padding:0;border:3px solid var(--comic-black);border-radius:11px;background:var(--comic-yellow);color:#111b23;box-shadow:3px 3px 0 var(--comic-black);cursor:pointer}
+.comic-more:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--comic-black)}
+.comic-drawer-backdrop{position:fixed;inset:0;z-index:9998;background:#000b;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+.comic-drawer{position:fixed;top:0;right:0;bottom:0;z-index:9999;width:min(86vw,340px);display:flex;flex-direction:column;background:#10141c;border-left:3px solid var(--comic-black);box-shadow:-6px 0 0 #000a;transform:translateX(105%);visibility:hidden;transition:transform .22s ease,visibility .22s;overscroll-behavior:contain}
+body.comic-drawer-open{overflow:hidden}
+body.comic-drawer-open .comic-drawer-backdrop{opacity:1;visibility:visible}
+body.comic-drawer-open .comic-drawer{transform:none;visibility:visible}
+.comic-drawer-head{flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:22px 16px 20px 20px;background:var(--comic-yellow);color:#111b23;border-bottom:3px solid var(--comic-black);font:700 24px ComicCondensed,Impact,sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.comic-drawer-head span{flex:1}
+.comic-drawer-head button{width:42px;height:42px;display:flex;align-items:center;justify-content:center;padding:0;background:#111b23;color:var(--comic-yellow);border:3px solid var(--comic-black);border-radius:10px;cursor:pointer}
+.comic-drawer-body{flex:1;overflow-y:auto;padding:18px 16px 28px;display:flex;flex-direction:column;gap:14px}
+.comic-drawer-sep{border:0;border-top:3px dashed #2b3547;margin:8px 0 4px}
+.comic-drawer-title{font:700 13px ComicUI,Arial,sans-serif;letter-spacing:2px;color:#8192a6;text-transform:uppercase;padding:0 4px}
+.comic-drawer-item{border-radius:14px!important;display:flex;align-items:center;gap:16px;width:100%;min-height:56px;padding:12px 18px;background:#1b2033;color:#f6f7fb;border:3px solid var(--comic-black);border-radius:14px;box-shadow:4px 4px 0 var(--comic-black);font:700 17px ComicCondensed,Impact,sans-serif;letter-spacing:1.5px;text-transform:uppercase;text-align:left;cursor:pointer}
+.comic-drawer-item:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--comic-black)}
+.comic-drawer-item.active{background:var(--comic-yellow);color:#111b23}
+.comic-drawer-item.danger{color:#ff8a96}
+.comic-drawer-item svg{flex:0 0 auto}
+@media(min-width:641px){.comic-drawer,.comic-drawer-backdrop{display:none!important}}
+
+/* Revision 2: straight brand, visible search, right-hand navigation and service links. */
+:root{--comic-bg:#10121f;--comic-card:#1c2032;--comic-raised:#262b40;--comic-yellow:#ffc328;--comic-green:#23865f}
+.comic-ptero .comic-header{background:#111420!important;padding:14px 22px!important;overflow:visible!important}
+.comic-ptero .comic-header .comic-header-row{gap:14px!important;max-width:1440px!important}
+.comic-ptero #logo{flex:1 1 auto!important;min-width:0!important;padding:0!important}
+.comic-ptero #logo a{display:block;width:fit-content;max-width:100%;white-space:normal;overflow-wrap:anywhere;transform:none;font-size:clamp(24px,3vw,38px)!important;line-height:1.08!important;padding:12px 22px!important;text-align:left;letter-spacing:.6px;border-radius:14px}
+.comic-ptero #logo+div{display:flex!important;flex:0 0 auto;gap:10px!important}
+.comic-ptero #logo+div>.comic-native-search{display:flex;align-items:center;justify-content:center;min-width:48px!important;height:48px!important}
+.comic-ptero .comic-more{display:flex!important;order:10;width:48px;height:48px;flex-shrink:0!important}
+.comic-ptero .comic-drawer{display:flex!important;width:min(88vw,390px);background:var(--comic-bg)}
+.comic-ptero .comic-drawer-backdrop{display:block!important;backdrop-filter:blur(5px)}
+.comic-ptero .comic-drawer-head{padding:24px 20px;letter-spacing:.7px}
+.comic-ptero .comic-drawer-body{padding:22px 20px 36px;gap:16px}
+.comic-ptero .comic-drawer-item{min-height:60px;padding:15px 18px;font-family:ComicUI,Arial,sans-serif;font-size:14px;line-height:1.5;letter-spacing:.3px;text-decoration:none;overflow-wrap:anywhere}
+.comic-ptero .comic-drawer-title{line-height:1.6;letter-spacing:.6px;color:#c4cad9}
+.comic-ptero .comic-drawer-item.active,.comic-ptero .comic-link-yellow{background:var(--comic-yellow);color:#12131b}
+.comic-ptero .comic-link-green{background:var(--comic-green);color:white}
+.comic-ptero .comic-link-arrow{margin-left:auto}
+.comic-ptero .comic-file{background:#1c2032!important;border-radius:14px!important;min-height:68px;margin-bottom:14px!important}
+.comic-ptero .comic-notify-dialog{max-height:85dvh;overflow:auto}
+.comic-ptero .comic-notify-dialog input{width:100%;padding:10px}
+.comic-search-results{display:flex;flex-direction:column;gap:12px;margin:22px 0;max-height:45vh;overflow:auto}
+.comic-search-results a{padding:12px;background:#262b40;border-radius:8px;color:white}
+.comic-settings-tabs{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 24px}
+.comic-link-form .box-body{padding:22px}.comic-link-form .box-header{padding:18px 22px}
+.comic-link-form .form-group{margin-bottom:22px}.comic-link-form .form-group:last-child{margin-bottom:0}
+.comic-link-form .help-block{color:#adbacb;font-size:12px;margin-top:10px}
+.comic-link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.comic-link-grid .box{margin:0}.comic-link-form>.box{margin-bottom:24px}
+.comic-link-form .comic-link-grid+.box{margin-top:24px}
+.comic-settings-footer{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.comic-settings-footer p{margin:0;color:#bdc5d5}
+.comic-admin .main-sidebar{left:auto!important;right:0!important;border-left:3px solid #080b10;border-right:0;width:250px!important;padding-top:78px!important}
+.comic-admin .content-wrapper,.comic-admin .main-footer{margin-left:0!important;margin-right:250px}
+.comic-admin .content{padding:24px}.comic-admin .content-header{padding:26px 24px 0}
+.comic-admin .main-header{height:78px;background:#131624;border-bottom:3px solid #080b10}
+.comic-admin .main-header .logo{height:75px;width:300px;display:flex;align-items:center;justify-content:center;line-height:1.05!important;font-size:30px!important;overflow-wrap:anywhere;white-space:normal;transform:none;padding:8px 16px}
+.comic-admin .main-header .navbar{height:75px;margin-left:300px!important;margin-right:0!important;border:0!important;display:flex;align-items:center;gap:14px;padding:10px 18px}
+.comic-admin .main-header .navbar-custom-menu{margin-left:auto}
+.comic-admin .main-header .sidebar-toggle{order:10;float:none;background:var(--comic-yellow);color:#111!important;border:3px solid #080b10;border-radius:10px;padding:12px 16px}
+.comic-admin .comic-admin-search{order:-1;background:#23273b;color:#fff;display:flex;align-items:center;padding:10px;min-width:46px}
+.comic-admin .sidebar-menu>li>a{min-height:46px;padding:13px 15px;margin:8px 12px}
+.comic-admin .sidebar-menu>li.header{padding:18px 20px;color:#adbacb!important}
+.comic-admin .sidebar-menu>li.active>a{background:var(--comic-yellow)!important}
+.comic-admin .sidebar-menu>li>a>span{white-space:normal}
+.comic-admin .box{margin-bottom:24px}.comic-admin .info-box-icon{background:var(--comic-yellow)!important;color:#111!important}
+@media(min-width:768px){
+ .comic-admin.sidebar-collapse .main-sidebar{width:50px!important;transform:none!important}
+ .comic-admin.sidebar-collapse .content-wrapper,.comic-admin.sidebar-collapse .main-footer{margin-left:0!important;margin-right:50px!important}
+ .comic-admin.sidebar-collapse .sidebar-menu>li>a{padding:12px 8px;margin:6px 2px}
+}
+@media(max-width:900px){.comic-ptero #logo+div>a,.comic-ptero #logo+div>button{display:none!important}.comic-link-grid{grid-template-columns:1fr}}
+@media(max-width:767px){
+ .comic-admin .main-header{height:auto;min-height:78px;display:flex;align-items:center;gap:8px;padding:10px}
+ .comic-admin .main-header .logo{width:auto;max-width:calc(100% - 120px);flex:1;float:none;height:auto;min-height:52px;font-size:25px!important;border-radius:10px}
+ .comic-admin .main-header .navbar{margin:0!important;min-height:52px;height:auto;flex:0 0 auto;padding:0;gap:8px}
+ .comic-admin .main-header .navbar-custom-menu{display:none}
+ .comic-admin .main-sidebar{position:fixed!important;top:0!important;bottom:0!important;padding-top:100px!important;transform:translateX(100%)!important;transition:transform .2s;overflow-y:auto;z-index:1029}
+ .comic-admin.sidebar-open .main-sidebar{transform:none!important;width:min(86vw,320px)!important}
+ .comic-admin .content-wrapper,.comic-admin .main-footer,.comic-admin.sidebar-open .content-wrapper{margin-left:0!important;margin-right:0!important;transform:none!important}
+ .comic-admin .content{padding:18px 14px}.comic-admin .content-header{padding:24px 14px 0}
+ .comic-admin .content-header h1 small{display:block;line-height:1.5;margin:10px 0}
+ .comic-settings-footer{align-items:stretch;flex-direction:column}
+ .comic-link-form .box-body{padding:18px}
+}
+@media(max-width:640px){
+ .comic-ptero .comic-header{padding:12px!important}
+ .comic-ptero .comic-header .comic-header-row{gap:8px!important}
+ .comic-ptero #logo a{font-size:clamp(22px,5.5vw,32px)!important;padding:12px!important;min-height:48px;border-radius:12px}
+ .comic-ptero #logo+div>*:not(.comic-native-search){display:none!important}
+ .comic-ptero #logo+div{gap:0!important}
+ .comic-ptero .comic-more,.comic-ptero #logo+div>.comic-native-search{width:44px;min-width:44px!important;height:48px!important}
+}
+.comic-admin.fixed .content-wrapper{padding-top:var(--comic-admin-header-height,78px)!important}
+.comic-admin .main-sidebar{padding-top:var(--comic-admin-header-height,78px)!important}
+@media(min-width:768px){.comic-admin .main-header .logo{width:300px!important}.comic-admin .main-header .navbar{margin-left:300px!important}}
+.comic-ptero .comic-subnav{display:none!important}
+.comic-admin-mobile-account{display:none}
+@media(max-width:767px){.comic-admin-mobile-account{display:block}}
+@media(min-width:768px){.comic-admin.sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right),.comic-admin.sidebar-collapse .sidebar-menu>li:hover>.treeview-menu{left:auto!important;right:50px!important}}
+
+
+/* Android repair: override Bootstrap's mobile navbar width, use a bounded grid. */
+.comic-ptero .comic-header{height:auto!important;min-height:0!important;margin:0!important;display:block!important;position:relative;isolation:isolate}
+.comic-ptero .comic-header .comic-header-row{display:flex!important;align-items:center!important;height:auto!important;min-height:52px!important;padding:0!important;margin:0 auto!important;flex-wrap:nowrap!important}
+.comic-ptero #logo a{position:relative;overflow:hidden;text-overflow:ellipsis;white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important}
+.comic-ptero #logo+div{width:auto!important;max-width:none!important;min-width:0!important}
+.comic-ptero .comic-server-card{background:linear-gradient(125deg,#232a3f,#191d2e)!important;border:3px solid #080b10!important;border-radius:17px!important;box-shadow:5px 5px 0 #080b10!important;padding:22px 24px!important;min-height:100px;margin-bottom:20px!important;color:#f6f7fb!important;opacity:1!important;position:relative;overflow:hidden;text-decoration:none!important;transition:transform .18s ease,box-shadow .18s ease!important}
+.comic-ptero .comic-server-card .icon{background:var(--comic-yellow)!important;color:#111420!important;border:2px solid #080b10;border-radius:13px!important;box-shadow:3px 3px 0 #080b10;min-width:46px;min-height:46px;display:flex;align-items:center;justify-content:center;margin-right:18px!important}
+.comic-ptero .comic-server-card .icon svg{color:#111420!important;width:20px;height:20px}
+.comic-ptero .comic-server-info{min-width:0}.comic-ptero .comic-server-info>div:last-child{min-width:0;flex:1}
+.comic-ptero .comic-server-title{font-weight:800!important;font-size:20px!important;line-height:1.35!important;color:#fff!important;margin:0;overflow-wrap:anywhere}
+.comic-ptero .comic-server-info p:not(.comic-server-title){color:#b9c5d9!important;font-size:13px!important;margin-top:6px!important}
+.comic-ptero .comic-server-card .status-bar{width:5px!important;right:0!important;top:12px!important;height:calc(100% - 24px)!important;opacity:1!important;border-radius:8px!important}
+.comic-admin .main-header .logo>span{display:block;min-width:0;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.comic-admin .main-header .navbar{min-width:0!important}
+.comic-admin .content-header>.breadcrumb{background:#1c2333!important;color:#b9c5d9;border:2px solid #080b10;border-radius:10px;line-height:1.6}
+.comic-admin .content-header>.breadcrumb>.active{color:#e6eaf2}
+.comic-admin .comic-link-grid>.box{min-width:0}
+.comic-admin .main-header::before,.comic-admin .main-header::after,.comic-admin .main-header .navbar::before,.comic-admin .main-header .navbar::after{display:none!important;content:none!important}
+@media(max-width:767px){
+ .comic-admin .main-header{display:grid!important;grid-template-columns:minmax(0,1fr) 100px!important;align-items:center!important;gap:10px!important;width:100%!important;height:76px!important;min-height:76px!important;padding:10px 12px!important;box-sizing:border-box!important;left:0!important;right:0!important}
+ .comic-admin .main-header .logo{width:100%!important;max-width:none!important;min-width:0!important;float:none!important;flex:none!important;height:52px!important;min-height:52px!important;margin:0!important;padding:10px 12px!important;white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important;font-size:clamp(22px,5.8vw,28px)!important;line-height:1!important;justify-content:flex-start!important;overflow:hidden!important;box-sizing:border-box!important}
+ .comic-admin .main-header .navbar{display:flex!important;justify-content:flex-end!important;align-items:center!important;width:100px!important;max-width:100px!important;min-width:100px!important;float:none!important;flex:none!important;margin:0!important;min-height:52px!important;height:52px!important;padding:0!important;gap:8px!important;box-sizing:border-box!important;background:transparent!important}
+ .comic-admin .main-header .sidebar-toggle,.comic-admin .comic-admin-search{display:flex!important;align-items:center!important;justify-content:center!important;width:46px!important;min-width:46px!important;height:48px!important;min-height:48px!important;margin:0!important;padding:0!important;flex:0 0 46px!important;border-radius:12px!important;box-sizing:border-box!important}
+ .comic-admin .main-header .navbar-custom-menu{display:none!important}
+ .comic-admin .content-header h1{font-size:30px!important;line-height:1.2!important;margin:0!important}
+ .comic-admin .content-header h1 small{font:400 13px/1.6 ComicUI,Arial,sans-serif!important;margin:10px 0 14px!important}
+ .comic-admin .content-header>.breadcrumb{margin:0!important;padding:10px 12px!important;font-size:12px!important}
+ .comic-admin .comic-settings-tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ .comic-admin .comic-settings-tabs .btn{font-size:13px!important;white-space:normal;padding:12px 9px!important}
+ .comic-admin input:not([type=checkbox]):not([type=radio]),.comic-admin select,.comic-admin textarea{font-size:16px!important}
+ .comic-admin .comic-link-form .box-header{padding:18px!important}.comic-admin .comic-link-form .box-title{font-size:23px!important}
+ .comic-admin .comic-link-form .help-block{font-size:12px!important;line-height:1.7!important}
+ .comic-ptero .comic-server-card{padding:20px 18px!important;min-height:94px;margin-bottom:18px!important}
+ .comic-ptero .comic-server-title{font-size:19px!important}
+}
+@media(max-width:640px){
+ .comic-ptero .comic-header{padding:12px!important}
+ .comic-ptero .comic-header .comic-header-row{display:grid!important;grid-template-columns:minmax(0,1fr) auto 44px!important;gap:9px!important;min-height:50px!important;width:100%!important}
+ .comic-ptero #logo{width:100%!important;min-width:0!important;max-width:none!important}
+ .comic-ptero #logo a{box-sizing:border-box!important;width:100%!important;font-size:clamp(21px,5.6vw,29px)!important;line-height:24px!important;height:50px!important;min-height:50px!important;padding:10px 12px!important;letter-spacing:.3px}
+ .comic-ptero #logo+div{height:48px!important;margin:0!important;padding:0!important}
+ .comic-ptero .comic-more{order:0!important;margin:0!important}
+}
+@keyframes comic-rise-in{from{opacity:.45;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@keyframes comic-menu-in{from{opacity:.5;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:no-preference){
+ .comic-ptero .comic-server-card,.comic-admin .comic-link-form>.box,.comic-admin .comic-link-grid>.box{animation:comic-rise-in .32s ease-out both}
+ .comic-admin .comic-link-grid>.box:nth-child(2){animation-delay:35ms}.comic-admin .comic-link-grid>.box:nth-child(3){animation-delay:70ms}
+ .comic-drawer-open .comic-drawer-item{animation:comic-menu-in .22s ease-out both}
+ .comic-drawer-open .comic-drawer-item:nth-child(2){animation-delay:20ms}.comic-drawer-open .comic-drawer-item:nth-child(3){animation-delay:40ms}.comic-drawer-open .comic-drawer-item:nth-child(4){animation-delay:60ms}
+}
+@media(hover:hover){.comic-ptero .comic-server-card:hover{transform:translateY(-3px);box-shadow:6px 8px 0 #080b10!important}}
+@media(prefers-reduced-motion:reduce){.comic-ptero .comic-server-card,.comic-ptero .comic-drawer-item,.comic-admin .box{animation:none!important;transition:none!important}}
+
+.comic-admin .main-header .navbar .sidebar-toggle,.comic-admin .main-header .navbar .sidebar-toggle:hover,.comic-admin .main-header .navbar .sidebar-toggle:focus{background:var(--comic-yellow)!important;color:#111420!important}
+.comic-admin .main-header .navbar .sidebar-toggle::before{display:none!important;content:none!important}
+.comic-admin-backdrop{display:none}
+@media(max-width:767px){
+ .comic-admin .main-sidebar{visibility:hidden;transition:transform .22s ease,visibility .22s ease!important}
+ .comic-admin.sidebar-open .main-sidebar{visibility:visible}
+ .comic-admin.sidebar-open .comic-admin-backdrop{display:block;position:fixed;inset:var(--comic-admin-header-height,76px) 0 0;z-index:1028;background:#0009;backdrop-filter:blur(3px)}
+}
+
+/* ===== COMIC-ANIM: hidup, bukan kaku — semua dimatikan jika reduced-motion ===== */
+.comic-ptero .comic-subnav{display:none!important}
+.comic-ripple-host{overflow:hidden}
+.comic-ripple{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fff9 0%,#fff0 70%);transform:scale(0);opacity:.9;animation:comic-ripple .6s ease-out forwards;z-index:0}
+.comic-burger line{transform-box:fill-box;transform-origin:center;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .2s}
+@keyframes comic-ripple{to{transform:scale(1);opacity:0}}
+@keyframes comic-pop{0%{transform:scale(1)}40%{transform:scale(.92,1.06)}70%{transform:scale(1.06,.96)}100%{transform:scale(1)}}
+@keyframes comic-wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+@keyframes comic-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes comic-glow{0%,100%{filter:drop-shadow(0 0 0 #3ddc9700)}50%{filter:drop-shadow(0 0 9px #3ddc97aa)}}
+@keyframes comic-ping{0%{box-shadow:3px 3px 0 #080b10,0 0 0 0 #f7ca4599}100%{box-shadow:3px 3px 0 #080b10,0 0 0 14px #f7ca4500}}
+@keyframes comic-shine{from{transform:translateX(-130%) skewX(-20deg)}to{transform:translateX(230%) skewX(-20deg)}}
+@keyframes comic-slide-spring{0%{opacity:0;transform:translateX(46px) scale(.96)}60%{opacity:1;transform:translateX(-6px) scale(1.01)}100%{opacity:1;transform:none}}
+@keyframes comic-page-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes comic-dot{0%,100%{opacity:1}50%{opacity:.35}}
+@media(prefers-reduced-motion:no-preference){
+ /* kecil-kecil hidup */
+ .comic-ptero #logo a{animation:comic-bob 3.2s ease-in-out infinite}
+ .comic-ptero #logo a:hover{animation:comic-wiggle .45s ease-in-out}
+ .comic-ptero .comic-more{animation:comic-ping 2.6s ease-out infinite;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s!important}
+ .comic-ptero .comic-more:hover{transform:rotate(-6deg) scale(1.08)}
+ .comic-ptero .comic-more:active{transform:scale(.9);animation:none}
+ body.comic-drawer-open .comic-more{animation:none}
+ body.comic-drawer-open .comic-burger line:nth-child(1){transform:translateY(6px) rotate(45deg)}
+ body.comic-drawer-open .comic-burger line:nth-child(2){opacity:0;transform:scaleX(0)}
+ body.comic-drawer-open .comic-burger line:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+ /* tombol: jelly saat disentuh, naik saat hover */
+ .comic-ptero button:not([role="switch"]):not(.xterm-helper-textarea),.comic-ptero .btn,.comic-ptero a[class*="Button"]{transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .15s ease,filter .2s ease,background .2s ease!important}
+ .comic-ptero button:hover:not(:disabled):not([role="switch"]),.comic-ptero .btn:hover{transform:translate(-2px,-3px) rotate(-.6deg)}
+ .comic-ptero button:active:not(:disabled):not([role="switch"]),.comic-ptero .btn:active{animation:comic-pop .35s ease-out}
+ /* kilau lewat di tombol utama */
+ .comic-primary,.comic-success,.comic-danger{position:relative;overflow:hidden}
+ .comic-primary::after,.comic-success::after,.comic-danger::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,#ffffff55,transparent);transform:translateX(-130%) skewX(-20deg);pointer-events:none}
+ .comic-primary:hover::after,.comic-success:hover::after,.comic-danger:hover::after{animation:comic-shine .65s ease}
+ /* tombol Start berdenyut saat bisa ditekan */
+ .comic-ptero .comic-success:not(:disabled){animation:comic-glow 2.2s ease-in-out infinite}
+ /* menu kanan: panel membal, item masuk bergantian */
+ .comic-ptero .comic-drawer{transition:transform .42s cubic-bezier(.22,1.2,.36,1),visibility .42s!important}
+ .comic-ptero .comic-drawer-backdrop{transition:opacity .3s,visibility .3s!important}
+ .comic-drawer-open .comic-drawer-item{animation:comic-slide-spring .5s cubic-bezier(.22,1.2,.36,1) both;animation-delay:calc(var(--i,0)*45ms + 120ms)!important}
+ .comic-drawer-open .comic-drawer-head svg{animation:comic-wiggle .7s ease-in-out .25s 2}
+ .comic-drawer-item{transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .15s,background .2s!important}
+ .comic-drawer-item svg{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+ .comic-drawer-item:hover{transform:translateX(-6px);box-shadow:8px 4px 0 var(--comic-black)!important}
+ .comic-drawer-item:hover svg{transform:scale(1.25) rotate(-10deg)}
+ .comic-drawer-item:active{transform:scale(.97)}
+ .comic-drawer-item.active{animation-name:comic-slide-spring,comic-glow;animation-duration:.5s,2.4s;animation-iteration-count:1,infinite;animation-delay:calc(var(--i,0)*45ms + 120ms),1s!important}
+ /* isi halaman masuk halus, kartu server & kotak naik */
+ .comic-ptero #app>div>div:not(.comic-header):not(.comic-subnav){animation:comic-page-in .45s ease-out both}
+ .comic-ptero .comic-card{animation:comic-page-in .4s ease-out both}
+ .comic-ptero .comic-server-card{transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .2s!important}
+ .comic-ptero .comic-server-card:active{transform:scale(.97)}
+ .comic-ptero .status-bar{animation:comic-dot 1.8s ease-in-out infinite}
+ .comic-ptero input:focus:not([type=checkbox]):not([type=radio]),.comic-ptero textarea:focus,.comic-ptero select:focus{transform:translateY(-1px);transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+}
+
+/* ===== WELCOME + GATE ===== */
+body.comic-welcome-open{overflow:hidden}
+.comic-welcome{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;background:#0b0f16;font-family:ComicUI,Arial,sans-serif}
+.comic-welcome-bg{position:absolute;inset:0;overflow:hidden;background:radial-gradient(circle at 30% 20%,#2a3550,#0b0f16 70%)}
+.comic-welcome-bg img,.comic-welcome-bg video{width:100%;height:100%;object-fit:cover;display:block}
+.comic-welcome-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,16,calc(var(--cw-shade,.45)*.7)),rgba(8,11,16,var(--cw-shade,.45)));background-image:radial-gradient(#ffffff14 1px,transparent 1px),linear-gradient(180deg,rgba(8,11,16,calc(var(--cw-shade,.45)*.7)),rgba(8,11,16,var(--cw-shade,.45)));background-size:7px 7px,auto}
+.comic-welcome-card{position:relative;width:min(100%,460px);margin:auto;text-align:center;padding:30px 22px;background:#10141ccc;border:4px solid #080b10;border-radius:20px;box-shadow:7px 7px 0 #080b10;backdrop-filter:blur(6px)}
+.comic-welcome-kicker{font:700 clamp(26px,8vw,40px)/1.1 ComicCondensed,Impact,sans-serif;letter-spacing:3px;color:var(--cw-title,#fff);text-shadow:3px 3px 0 #080b10;text-transform:uppercase}
+.comic-welcome-kicker span{display:inline-block}
+.comic-welcome-name{margin:8px 0 6px!important;font:700 clamp(40px,13vw,68px)/1.05 ComicCondensed,Impact,sans-serif!important;letter-spacing:1px;color:var(--cw-name,#f7ca45)!important;text-shadow:4px 4px 0 #080b10;overflow-wrap:anywhere}
+.comic-welcome-text{margin:12px 0 4px;font-size:14px;line-height:1.7;color:var(--cw-text,#f6f7fb)}
+.comic-gate{margin-top:20px;padding:16px;background:#080b1099;border:3px dashed var(--cw-accent,#f7ca45);border-radius:14px}
+.comic-gate-title{font:700 24px ComicCondensed,Impact,sans-serif;letter-spacing:1.5px;color:var(--cw-accent,#f7ca45);text-transform:uppercase}
+.comic-gate-text{margin:8px 0 14px;font-size:13px;line-height:1.6;color:var(--cw-text,#f6f7fb)}
+.comic-gate-links{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.comic-welcome-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;padding:12px 18px;border:3px solid #080b10;border-radius:12px;background:#1b2033;color:#fff;font:700 16px ComicUI,Arial,sans-serif;text-decoration:none!important;cursor:pointer;box-shadow:4px 4px 0 #080b10;position:relative;overflow:hidden}
+.comic-gate-link{background:var(--cw-accent,#f7ca45);color:#101820}
+.comic-welcome-go,.comic-gate-done.ready{background:#299c73;color:#fff}
+.comic-gate-done:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.6)}
+.comic-welcome-btn:active:not(:disabled){transform:translate(3px,3px);box-shadow:1px 1px 0 #080b10}
+.comic-welcome.closing{pointer-events:none}
+@keyframes cw-fade{from{opacity:0}to{opacity:1}}
+@keyframes cw-out{to{opacity:0;transform:scale(1.06)}}
+@keyframes cw-card{0%{opacity:0;transform:translateY(40px) scale(.9) rotate(-1.5deg)}65%{opacity:1;transform:translateY(-6px) scale(1.02) rotate(.5deg)}100%{opacity:1;transform:none}}
+@keyframes cw-letter{0%{opacity:0;transform:translateY(-26px) rotate(-12deg) scale(.4)}70%{opacity:1;transform:translateY(4px) rotate(3deg) scale(1.15)}100%{opacity:1;transform:none}}
+@keyframes cw-name{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.04) rotate(-.8deg)}}
+@keyframes cw-ready{0%,100%{box-shadow:4px 4px 0 #080b10,0 0 0 0 #299c7399}50%{box-shadow:4px 4px 0 #080b10,0 0 0 10px #299c7300}}
+@media(prefers-reduced-motion:no-preference){
+ .comic-welcome{animation:cw-fade .4s ease-out both}
+ .comic-welcome.closing{animation:cw-out .38s ease-in forwards}
+ .comic-welcome-bg img,.comic-welcome-bg video{animation:cw-fade 1s ease-out both}
+ .comic-welcome-card{animation:cw-card .7s cubic-bezier(.22,1.2,.36,1) .1s both}
+ .comic-welcome-kicker span{animation:cw-letter .55s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(.35s + var(--n,0)*55ms)}
+ .comic-welcome-name{animation:cw-name 3.4s ease-in-out 1.2s infinite}
+ .comic-welcome-btn{transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .15s}
+ .comic-welcome-btn:hover:not(:disabled){transform:translate(-2px,-3px) rotate(-.7deg);box-shadow:6px 7px 0 #080b10}
+ .comic-gate-done.ready{animation:cw-ready 1.8s ease-in-out infinite}
+ .comic-gate-links .comic-welcome-btn,.comic-gate-done,.comic-welcome-go{animation:cw-card .6s cubic-bezier(.22,1.2,.36,1) .9s both}
+}
+
+/* ===== ADMIN: menu & tombol ikut beranimasi ===== */
+@keyframes comic-admin-in{0%{opacity:0;transform:translateX(34px)}60%{opacity:1;transform:translateX(-5px)}100%{opacity:1;transform:none}}
+@keyframes comic-admin-box{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:no-preference){
+ .comic-admin .sidebar-menu>li{animation:comic-admin-in .5s cubic-bezier(.22,1.2,.36,1) both}
+ .comic-admin .sidebar-menu>li:nth-child(1){animation-delay:.04s}.comic-admin .sidebar-menu>li:nth-child(2){animation-delay:.08s}.comic-admin .sidebar-menu>li:nth-child(3){animation-delay:.12s}.comic-admin .sidebar-menu>li:nth-child(4){animation-delay:.16s}.comic-admin .sidebar-menu>li:nth-child(5){animation-delay:.2s}.comic-admin .sidebar-menu>li:nth-child(6){animation-delay:.24s}.comic-admin .sidebar-menu>li:nth-child(7){animation-delay:.28s}.comic-admin .sidebar-menu>li:nth-child(8){animation-delay:.32s}.comic-admin .sidebar-menu>li:nth-child(9){animation-delay:.36s}.comic-admin .sidebar-menu>li:nth-child(10){animation-delay:.4s}.comic-admin .sidebar-menu>li:nth-child(n+11){animation-delay:.44s}
+ .comic-admin .sidebar-menu>li>a{transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .2s,color .2s!important}
+ .comic-admin .sidebar-menu>li>a:hover{transform:translateX(-6px)}
+ .comic-admin .sidebar-menu>li>a>i,.comic-admin .sidebar-menu>li>a>.fa{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+ .comic-admin .sidebar-menu>li>a:hover>i,.comic-admin .sidebar-menu>li>a:hover>.fa{transform:scale(1.3) rotate(-12deg)}
+ .comic-admin .sidebar-menu>li.active>a{animation:comic-glow 2.4s ease-in-out infinite}
+ .comic-admin .sidebar-menu>li>a:active{transform:scale(.96)}
+ .comic-admin .btn,.comic-admin .comic-admin-search,.comic-admin .sidebar-toggle{transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .15s,filter .2s!important}
+ .comic-admin .btn:hover,.comic-admin .comic-admin-search:hover,.comic-admin .sidebar-toggle:hover{transform:translate(-2px,-3px) rotate(-.6deg)}
+ .comic-admin .btn:active,.comic-admin .comic-admin-search:active,.comic-admin .sidebar-toggle:active{animation:comic-pop .35s ease-out}
+ .comic-admin .btn-primary,.comic-admin .btn-success,.comic-admin .btn-danger,.comic-admin .btn-info{position:relative;overflow:hidden}
+ .comic-admin .btn-primary::after,.comic-admin .btn-success::after,.comic-admin .btn-danger::after,.comic-admin .btn-info::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,#ffffff55,transparent);transform:translateX(-130%) skewX(-20deg);pointer-events:none}
+ .comic-admin .btn-primary:hover::after,.comic-admin .btn-success:hover::after,.comic-admin .btn-danger:hover::after,.comic-admin .btn-info:hover::after{animation:comic-shine .65s ease}
+ .comic-admin .comic-admin-search,.comic-admin .sidebar-toggle{animation:comic-ping 2.6s ease-out infinite}
+ .comic-admin .content-wrapper .box,.comic-admin .small-box,.comic-admin .info-box{animation:comic-admin-box .45s ease-out both}
+ .comic-admin .comic-dyn-row{animation:comic-admin-box .3s ease-out both}
+ .comic-admin .main-sidebar{transition:transform .4s cubic-bezier(.22,1.2,.36,1)!important}
+}
+
+/* ===== Admin: form dinamis (Link, gerbang, welcome) ===== */
+.comic-admin .comic-dyn-row{display:grid;grid-template-columns:1fr 1.4fr auto auto;gap:10px;align-items:end;padding:12px;margin-bottom:12px;background:#141b26;border:3px solid #080b10;border-radius:10px}
+.comic-admin .comic-dyn-row .form-group{margin:0}
+.comic-admin .comic-dyn-row .btn-remove{height:42px}
+.comic-admin .comic-color-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.comic-admin input[type=color]{padding:3px;height:44px;width:100%;cursor:pointer}
+.comic-admin .comic-banner-preview{max-width:100%;max-height:180px;border:3px solid #080b10;border-radius:10px;margin:8px 0;display:block}
+@media(max-width:767px){.comic-admin .comic-dyn-row{grid-template-columns:1fr}}
+
+/* ===== NOTIFIKASI ATAS — papan peringatan tunggal ===== */
+.comic-ptero .comic-notice-board{position:relative;z-index:4;width:calc(100% - 28px);max-width:1200px;margin:16px auto 8px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 16px;background:linear-gradient(135deg,#f7ca45 0%,#ffc328 72%,#eeb21f 100%);color:#111722;border:4px solid #080b10;border-radius:16px;box-shadow:6px 6px 0 #080b10;overflow:hidden}
+.comic-ptero .comic-notice-board::before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:repeating-linear-gradient(135deg,#080b10 0 12px,transparent 12px 24px);opacity:.18;pointer-events:none}
+.comic-notice-icon{display:flex;align-items:center;justify-content:center;width:48px;height:48px;flex:none;border:3px solid #080b10;border-radius:12px;background:#111722;color:#f7ca45;box-shadow:3px 3px 0 #080b10;font:700 32px/1 ComicCondensed,Impact,sans-serif}
+.comic-notice-copy{min-width:0;display:flex;flex-direction:column;gap:3px}
+.comic-notice-title{font:700 20px/1.15 ComicCondensed,Impact,sans-serif;letter-spacing:.8px;text-transform:uppercase;color:#111722}
+.comic-notice-text{font:700 13px/1.55 ComicUI,Arial,sans-serif;color:#27313c;overflow-wrap:anywhere}
+.comic-notice-actions{display:flex;align-items:center;gap:9px}
+.comic-notice-link,.comic-notice-close{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:3px solid #080b10;border-radius:10px;box-shadow:3px 3px 0 #080b10;font:700 13px ComicUI,Arial,sans-serif;text-decoration:none!important;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.comic-notice-link{padding:9px 14px;background:#23865f;color:#fff!important;white-space:nowrap}
+.comic-notice-close{width:44px;padding:0;background:#111722;color:#f7ca45;font-size:24px;line-height:1}
+.comic-notice-link:active,.comic-notice-close:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #080b10}
+@media(max-width:640px){.comic-ptero .comic-notice-board{grid-template-columns:42px minmax(0,1fr);gap:10px;padding:13px 12px;margin-top:12px}.comic-notice-icon{width:42px;height:42px;font-size:28px}.comic-notice-title{font-size:18px}.comic-notice-actions{grid-column:1/-1;width:100%}.comic-notice-link{flex:1}.comic-notice-close{flex:0 0 44px}}
+@media(prefers-reduced-motion:no-preference){.comic-ptero .comic-notice-board{animation:comic-notice-in .5s cubic-bezier(.22,1.2,.36,1) both}.comic-notice-icon{animation:comic-wiggle .6s ease-in-out .25s 2}}
+@keyframes comic-notice-in{from{opacity:0;transform:translateY(-12px) scale(.98)}to{opacity:1;transform:none}}
+
+/* ===== HERO WELCOME di Dashboard ===== */
+.comic-ptero .comic-hero{position:relative;overflow:hidden;isolation:isolate;width:calc(100% - 28px);max-width:1200px;margin:18px auto 4px;min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 25% 15%,#2c3858,#0f141d 70%);border:4px solid #080b10;border-radius:18px;box-shadow:6px 6px 0 #080b10}
+.comic-hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.comic-hero-bg img,.comic-hero-bg video{width:100%;height:100%;object-fit:cover;display:block}
+.comic-hero-shade{position:absolute;inset:0;z-index:-1;background-image:radial-gradient(#ffffff14 1px,transparent 1px),linear-gradient(180deg,rgba(8,11,16,calc(var(--cw-shade,.45)*.6)),rgba(8,11,16,var(--cw-shade,.45)));background-size:7px 7px,auto}
+.comic-hero-body{width:100%;padding:28px 18px}
+.comic-hero .comic-welcome-kicker{font-size:clamp(24px,7vw,38px)}
+.comic-ptero h1.comic-welcome-name{font-size:clamp(38px,12vw,66px)!important;margin:6px 0 4px!important}
+.comic-hero .comic-welcome-text{max-width:620px;margin:10px auto 0}
+.comic-hero::after{content:"";position:absolute;top:0;bottom:0;left:0;width:30%;background:linear-gradient(100deg,transparent,#ffffff22,transparent);transform:translateX(-150%) skewX(-20deg);pointer-events:none}
+@keyframes comic-hero-in{0%{opacity:0;transform:translateY(24px) scale(.94) rotate(-1deg)}65%{opacity:1;transform:translateY(-4px) scale(1.01)}100%{opacity:1;transform:none}}
+@keyframes comic-kb{from{transform:scale(1)}to{transform:scale(1.12)}}
+@keyframes comic-hero-shine{0%,70%{transform:translateX(-150%) skewX(-20deg)}100%{transform:translateX(450%) skewX(-20deg)}}
+@media(prefers-reduced-motion:no-preference){
+ .comic-ptero .comic-hero{animation:comic-hero-in .7s cubic-bezier(.22,1.2,.36,1) both}
+ .comic-hero-bg img{animation:comic-kb 14s ease-in-out infinite alternate}
+ .comic-hero::after{animation:comic-hero-shine 6s ease-in-out 1.5s infinite}
+}
+
+/* ===== ADMIN SKIN KOMIK (V5) — semua elemen admin ikut tema ===== */
+body.comic-admin.comic-ptero{--ck:#080b10;--cy:#f7ca45;--cg:#299c73}
+body.comic-admin.comic-ptero .content-wrapper{background:transparent!important}
+body.comic-admin.comic-ptero a{transition:color .15s}
+body.comic-admin.comic-ptero .content a:not(.btn){color:var(--cy)}
+body.comic-admin.comic-ptero .content a:not(.btn):hover{color:#fff;text-decoration:none}
+body.comic-admin.comic-ptero label{font-weight:700;color:#eef2f8;letter-spacing:.2px}
+body.comic-admin.comic-ptero .help-block,body.comic-admin.comic-ptero .text-muted,body.comic-admin.comic-ptero small{color:#9fb0c6!important}
+body.comic-admin.comic-ptero code{background:#0c1119;color:#ffd76a;border:2px solid var(--ck);border-radius:6px;padding:2px 7px;font-size:90%}
+body.comic-admin.comic-ptero hr{border:0!important;border-top:4px dashed #2e3a52!important;margin:24px 0;height:0}
+body.comic-admin.comic-ptero ::selection{background:var(--cy);color:#101820}
+body.comic-admin.comic-ptero *::-webkit-scrollbar,.comic-drawer *::-webkit-scrollbar{width:12px;height:12px}
+body.comic-admin.comic-ptero *::-webkit-scrollbar-track{background:#0c1119}
+body.comic-admin.comic-ptero *::-webkit-scrollbar-thumb{background:var(--cy);border:3px solid var(--ck);border-radius:10px}
+
+/* ---- checkbox & radio komik ---- */
+body.comic-admin.comic-ptero input[type=checkbox],body.comic-admin.comic-ptero input[type=radio]{-webkit-appearance:none;appearance:none;position:relative;flex:none;width:28px;height:28px;min-width:28px;margin:0 8px 0 0!important;vertical-align:middle;background:#111a26;border:3px solid var(--ck);border-radius:8px;box-shadow:3px 3px 0 var(--ck);cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1),background .15s,box-shadow .15s}
+body.comic-admin.comic-ptero input[type=radio]{border-radius:50%}
+body.comic-admin.comic-ptero input[type=checkbox]:hover,body.comic-admin.comic-ptero input[type=radio]:hover{transform:translate(-1px,-2px) rotate(-3deg);box-shadow:4px 5px 0 var(--ck)}
+body.comic-admin.comic-ptero input[type=checkbox]:active,body.comic-admin.comic-ptero input[type=radio]:active{transform:scale(.88);box-shadow:1px 1px 0 var(--ck)}
+body.comic-admin.comic-ptero input[type=radio]::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#101820;transform:scale(0);transition:transform .22s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+body.comic-admin.comic-ptero input[type=radio]:checked::after{transform:scale(1)}
+body.comic-admin.comic-ptero label:has(input:checked){color:var(--cy)}
+body.comic-admin.comic-ptero input[type=radio]:checked{background:var(--cy)!important}
+body.comic-admin.comic-ptero input[type=checkbox]:focus-visible,body.comic-admin.comic-ptero input[type=radio]:focus-visible{outline:3px dashed var(--cy);outline-offset:3px}
+body.comic-admin.comic-ptero .checkbox label,body.comic-admin.comic-ptero .radio label,body.comic-admin.comic-ptero .checkbox-inline,body.comic-admin.comic-ptero .radio-inline,body.comic-admin.comic-ptero label.pull-right,body.comic-admin.comic-ptero .box-header>label{display:inline-flex;align-items:center;gap:4px;padding-left:0!important;cursor:pointer}
+body.comic-admin.comic-ptero .checkbox input[type=checkbox],body.comic-admin.comic-ptero .radio input[type=radio],body.comic-admin.comic-ptero .checkbox-inline input,body.comic-admin.comic-ptero .radio-inline input{position:relative!important;margin:0 8px 0 0!important;float:none}
+body.comic-admin.comic-ptero .box-header>label.pull-right{float:right;background:#10141c;border:3px solid var(--ck);border-radius:999px;padding:5px 14px 5px 10px!important;box-shadow:3px 3px 0 var(--ck);font-size:13px}
+body.comic-admin.comic-ptero .box-header>label.pull-right input{margin-right:8px!important}
+body.comic-admin.comic-ptero .checkbox-inline+.btn,body.comic-admin.comic-ptero .checkbox-inline+.btn-remove{margin-left:8px}
+
+/* ---- file & color & select & fokus ---- */
+body.comic-admin.comic-ptero input[type=file]:not(._a):not(._b){width:100%;padding:10px!important;color:#cdd8e6!important;background:#111a26!important;border:3px dashed #3a4a63!important;border-radius:12px!important;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;height:auto}
+body.comic-admin.comic-ptero input[type=file]:not(._a):not(._b):hover{border-color:var(--cy)!important;border-style:solid!important;transform:translateY(-2px);box-shadow:4px 4px 0 var(--ck)!important}
+body.comic-admin.comic-ptero input[type=file]::file-selector-button{margin-right:14px;padding:11px 18px;font:700 14px ComicUI,Arial,sans-serif;color:#111a23;background:var(--cy);border:3px solid var(--ck);border-radius:10px;box-shadow:3px 3px 0 var(--ck);cursor:pointer;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .15s}
+body.comic-admin.comic-ptero input[type=file]::file-selector-button:hover{transform:translate(-2px,-3px) rotate(-1.5deg);box-shadow:5px 6px 0 var(--ck)}
+body.comic-admin.comic-ptero input[type=file]::file-selector-button:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ck)}
+body.comic-admin.comic-ptero input[type=color]:not(._a):not(._b){padding:4px!important;cursor:pointer}
+body.comic-admin.comic-ptero input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+body.comic-admin.comic-ptero input[type=color]::-webkit-color-swatch{border:0;border-radius:6px}
+body.comic-admin.comic-ptero select:not(._a):not(._b),body.comic-admin.comic-ptero select.form-control:not(._a){-webkit-appearance:none;appearance:none;padding-right:44px!important;cursor:pointer;background:linear-gradient(45deg,transparent 50%,#f7ca45 50%) calc(100% - 26px) 52%/9px 9px no-repeat,linear-gradient(135deg,#f7ca45 50%,transparent 50%) calc(100% - 18px) 52%/9px 9px no-repeat,#111a26!important}
+body.comic-admin.comic-ptero select option{background:#1b2033;color:#fff}
+body.comic-admin.comic-ptero textarea{resize:vertical}
+body.comic-admin.comic-ptero .form-control:focus:not(._a),body.comic-admin.comic-ptero input:focus:not([type=checkbox]):not([type=radio]):not(._a),body.comic-admin.comic-ptero textarea:focus:not(._a),body.comic-admin.comic-ptero select:focus:not(._a){border-color:var(--cy)!important;box-shadow:4px 4px 0 var(--ck)!important;outline:0!important;transform:translateY(-2px)}
+body.comic-admin.comic-ptero .form-group{margin-bottom:20px}
+body.comic-admin.comic-ptero .input-group-addon{background:var(--cy)!important;color:#101820!important;border:3px solid var(--ck)!important;font-weight:700;border-radius:8px}
+
+/* ---- sidebar komik ---- */
+body.comic-admin.comic-ptero .main-sidebar{background:#10141c!important;background-image:radial-gradient(#ffffff0c 1px,transparent 1px)!important;background-size:7px 7px;border-left:4px solid var(--ck)!important;box-shadow:-6px 0 0 #0007}
+body.comic-admin.comic-ptero .sidebar-menu>li>a:not(._a):not(._b){display:flex;align-items:center;gap:12px;background:#1b2033!important;color:#f6f7fb!important;border:3px solid var(--ck)!important;border-radius:13px!important;box-shadow:3px 3px 0 var(--ck);font:700 14.5px ComicUI,Arial,sans-serif;margin:10px 14px!important;min-height:50px;position:relative;overflow:hidden}
+body.comic-admin.comic-ptero .sidebar-menu>li>a>i,body.comic-admin.comic-ptero .sidebar-menu>li>a>.fa{flex:none;width:32px!important;height:32px;display:grid;place-items:center;background:var(--cy);color:#101820;border:2px solid var(--ck);border-radius:9px;box-shadow:2px 2px 0 var(--ck);font-size:15px;margin:0!important}
+body.comic-admin.comic-ptero .sidebar-menu>li>a>span:not(.pull-right-container){flex:1}
+body.comic-admin.comic-ptero .sidebar-menu>li.active>a:not(._a):not(._b){background:var(--cy)!important;color:#101820!important}
+body.comic-admin.comic-ptero .sidebar-menu>li.active>a>i,body.comic-admin.comic-ptero .sidebar-menu>li.active>a>.fa{background:#101820;color:var(--cy)}
+body.comic-admin.comic-ptero .sidebar-menu>li.header{background:none!important;color:var(--cy)!important;font:700 15px ComicCondensed,Impact,sans-serif;letter-spacing:2.5px;padding:20px 22px 4px;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+body.comic-admin.comic-ptero .sidebar-menu>li.header::after{content:"";flex:1;border-top:3px dashed #2e3a52}
+body.comic-admin.comic-ptero .treeview-menu{background:#0b0f16!important;border:3px dashed #2e3a52;border-radius:12px;margin:0 14px 10px!important;padding:6px!important}
+body.comic-admin.comic-ptero .treeview-menu>li>a{color:#c5d0df!important;border-radius:9px;padding:10px 14px!important;font-weight:600}
+body.comic-admin.comic-ptero .treeview-menu>li>a:hover,body.comic-admin.comic-ptero .treeview-menu>li.active>a{background:var(--cy)!important;color:#101820!important}
+body.comic-admin.comic-ptero .sidebar-menu>li.comic-admin-back>a:not(._a):not(._b){background:var(--cg)!important;color:#fff!important}
+body.comic-admin.comic-ptero .sidebar-menu>li.comic-admin-back>a>i{background:#fff}
+body.comic-admin.comic-ptero .sidebar-menu>li.comic-admin-back.alt>a:not(._a):not(._b){background:#23273b!important}
+
+/* ---- judul halaman, breadcrumb, box ---- */
+body.comic-admin.comic-ptero .content-header>h1{display:block;color:var(--cy)!important;text-shadow:3px 3px 0 var(--ck);letter-spacing:1px}
+body.comic-admin.comic-ptero .content-header>h1::after{content:"";display:block;height:7px;width:110px;margin-top:10px;border-radius:4px;background:repeating-linear-gradient(90deg,var(--cy) 0 14px,var(--ck) 14px 18px)}
+body.comic-admin.comic-ptero .content-header>h1>small{color:#b9c5d9!important;text-shadow:none}
+body.comic-admin.comic-ptero .content-header>.breadcrumb{box-shadow:3px 3px 0 var(--ck)}
+body.comic-admin.comic-ptero .content-header>.breadcrumb a{color:var(--cy)!important}
+body.comic-admin.comic-ptero .box{overflow:hidden;position:relative}
+body.comic-admin.comic-ptero .box>.box-header{background:linear-gradient(90deg,#262e49,#1b2033)!important;border-bottom:3px solid var(--ck)!important;padding:16px 18px 16px 26px;position:relative}
+body.comic-admin.comic-ptero .box>.box-header::before{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:repeating-linear-gradient(180deg,var(--cy) 0 12px,var(--ck) 12px 15px)}
+body.comic-admin.comic-ptero .box-title::before{content:"★";color:var(--cy);margin-right:8px;display:inline-block}
+body.comic-admin.comic-ptero .box-body{padding:20px 18px}
+body.comic-admin.comic-ptero .box-footer{border-top:3px dashed #2e3a52!important}
+body.comic-admin.comic-ptero .callout,body.comic-admin.comic-ptero .alert{border-radius:12px!important;box-shadow:4px 4px 0 var(--ck);font-weight:600;border:3px solid var(--ck)!important}
+body.comic-admin.comic-ptero .callout{background:#202b39!important;color:#e6edf6!important}
+body.comic-admin.comic-ptero .callout-warning,body.comic-admin.comic-ptero .alert-warning{background:#5d4a14!important;color:#ffefb8!important}
+body.comic-admin.comic-ptero .callout-danger{background:#612c38!important;color:#ffd7db!important}
+body.comic-admin.comic-ptero .callout-success{background:#205f48!important;color:#d9fff0!important}
+body.comic-admin.comic-ptero .alert .close{color:#fff;opacity:.8;text-shadow:none}
+
+/* ---- tabel ---- */
+body.comic-admin.comic-ptero .table-responsive{border:3px solid var(--ck)!important;border-radius:12px;box-shadow:4px 4px 0 var(--ck)}
+body.comic-admin.comic-ptero .box>.box-body.no-padding .table{margin:0}
+body.comic-admin.comic-ptero .table>thead>tr>th{background:#262e49!important;color:var(--cy)!important;font:700 15px ComicCondensed,Impact,sans-serif;letter-spacing:1.4px;text-transform:uppercase;border-bottom:3px solid var(--ck)!important;white-space:nowrap}
+body.comic-admin.comic-ptero .table>tbody>tr>td{border-top:2px dashed #2a3650!important}
+body.comic-admin.comic-ptero .table>tbody>tr{transition:transform .15s,background .15s}
+body.comic-admin.comic-ptero .table-hover>tbody>tr:hover{background:#2b3552!important;transform:translateX(-3px)}
+body.comic-admin.comic-ptero .dataTables_filter input,body.comic-admin.comic-ptero .dataTables_length select{display:inline-block;width:auto}
+
+/* ---- label, badge, pagination, tabs, dropdown, modal ---- */
+body.comic-admin.comic-ptero .label,body.comic-admin.comic-ptero .badge{display:inline-block;border:2px solid var(--ck);border-radius:999px;padding:4px 11px;font-weight:700;letter-spacing:.3px;box-shadow:2px 2px 0 var(--ck);text-shadow:none;color:#fff;background:#3a4560}
+body.comic-admin.comic-ptero .label-success,body.comic-admin.comic-ptero .bg-green{background:var(--cg)!important}
+body.comic-admin.comic-ptero .label-danger,body.comic-admin.comic-ptero .bg-red{background:#c24558!important}
+body.comic-admin.comic-ptero .label-warning,body.comic-admin.comic-ptero .label-primary,body.comic-admin.comic-ptero .bg-yellow{background:var(--cy)!important;color:#101820!important}
+body.comic-admin.comic-ptero .label-info,body.comic-admin.comic-ptero .bg-aqua{background:#2f8fa0!important}
+body.comic-admin.comic-ptero .pagination>li>a,body.comic-admin.comic-ptero .pagination>li>span{background:#1b2033!important;color:#fff!important;border:3px solid var(--ck)!important;border-radius:10px!important;margin:0 3px;box-shadow:2px 2px 0 var(--ck);font-weight:700;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+body.comic-admin.comic-ptero .pagination>li>a:hover{transform:translateY(-3px);background:#2b3552!important}
+body.comic-admin.comic-ptero .pagination>.active>a,body.comic-admin.comic-ptero .pagination>.active>span{background:var(--cy)!important;color:#101820!important}
+body.comic-admin.comic-ptero .nav-tabs{border-bottom:3px solid var(--ck)!important}
+body.comic-admin.comic-ptero .nav-tabs>li>a{background:#1b2033!important;color:#dfe7f1!important;border:3px solid var(--ck)!important;border-radius:11px 11px 0 0!important;margin-right:6px;font-weight:700;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+body.comic-admin.comic-ptero .nav-tabs>li>a:hover{transform:translateY(-3px)}
+body.comic-admin.comic-ptero .nav-tabs>li.active>a,body.comic-admin.comic-ptero .nav-tabs>li.active>a:hover{background:var(--cy)!important;color:#101820!important}
+body.comic-admin.comic-ptero .dropdown-menu{background:#1b2033!important;border:3px solid var(--ck)!important;border-radius:12px!important;box-shadow:5px 5px 0 var(--ck)!important;padding:6px}
+body.comic-admin.comic-ptero .dropdown-menu>li>a{color:#f6f7fb!important;border-radius:8px;padding:9px 14px;font-weight:600}
+body.comic-admin.comic-ptero .dropdown-menu>li>a:hover{background:var(--cy)!important;color:#101820!important}
+body.comic-admin.comic-ptero .modal-backdrop.in{opacity:.75}
+body.comic-admin.comic-ptero .btn-group>.btn{border-radius:9px!important;margin-right:4px}
+body.comic-admin.comic-ptero .btn-link{color:var(--cy)!important;box-shadow:none!important;border:0!important}
+body.comic-admin.comic-ptero .btn-warning{background:#c97a1e!important;color:#fff!important}
+body.comic-admin.comic-ptero .btn-lg{padding:14px 24px!important;font-size:17px!important}
+body.comic-admin.comic-ptero .main-footer{border-top:4px solid var(--ck)!important;text-align:center;font-weight:600}
+body.comic-admin.comic-ptero .main-footer a{color:var(--cy)!important}
+body.comic-admin.comic-ptero .progress{height:20px;box-shadow:3px 3px 0 var(--ck)}
+body.comic-admin.comic-ptero .small-box{overflow:hidden}
+body.comic-admin.comic-ptero .small-box>.small-box-footer{background:#10141c!important;color:var(--cy)!important;font-weight:700}
+
+/* ---- tombol kembali ke panel di header admin ---- */
+body.comic-admin.comic-ptero .comic-admin-home{order:-2;display:flex;align-items:center;justify-content:center;width:46px;min-width:46px;height:48px;border:3px solid var(--ck);border-radius:12px;background:var(--cg);color:#fff!important;box-shadow:3px 3px 0 var(--ck);text-decoration:none!important;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .15s}
+body.comic-admin.comic-ptero .comic-admin-home:hover{transform:translate(-2px,-3px) rotate(-6deg) scale(1.06);box-shadow:5px 6px 0 var(--ck)}
+body.comic-admin.comic-ptero .comic-admin-home:active{transform:scale(.9)}
+@media(max-width:767px){
+ body.comic-admin.comic-ptero .main-header{grid-template-columns:minmax(0,1fr) 154px!important}
+ body.comic-admin.comic-ptero .main-header .navbar{width:154px!important;max-width:154px!important;min-width:154px!important}
+ body.comic-admin.comic-ptero .comic-admin-home{flex:0 0 46px;margin:0!important}
+ body.comic-admin.comic-ptero .content-header>h1{font-size:30px!important}
+ body.comic-admin.comic-ptero .box>.box-header{padding:14px 14px 14px 22px}
+ body.comic-admin.comic-ptero .table>thead>tr>th{font-size:13px}
+ body.comic-admin.comic-ptero input[type=file]::file-selector-button{display:block;margin:0 0 8px}
+}
+@keyframes comic-h1-bar{from{width:0}to{width:110px}}
+@keyframes comic-check{0%{transform:scale(.6) rotate(-14deg)}60%{transform:scale(1.2) rotate(4deg)}100%{transform:none}}
+@media(prefers-reduced-motion:no-preference){
+ body.comic-admin.comic-ptero .content-header>h1::after{animation:comic-h1-bar .7s cubic-bezier(.22,1.2,.36,1) .2s both}
+ body.comic-admin.comic-ptero input[type=radio]:checked{animation:comic-check .35s cubic-bezier(.34,1.56,.64,1)}
+ body.comic-admin.comic-ptero .box-title::before{animation:comic-wiggle 3s ease-in-out infinite}
+ body.comic-admin.comic-ptero .table>tbody>tr{animation:comic-admin-box .4s ease-out both}
+ body.comic-admin.comic-ptero .sidebar-menu>li.comic-admin-back>a::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,#ffffff40,transparent);transform:translateX(-130%) skewX(-20deg);animation:comic-shine 3.5s ease-in-out 1s infinite}
+ body.comic-admin.comic-ptero .label,body.comic-admin.comic-ptero .badge{transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+ body.comic-admin.comic-ptero .label:hover,body.comic-admin.comic-ptero .badge:hover{transform:scale(1.12) rotate(-3deg)}
+ body.comic-admin.comic-ptero .alert,body.comic-admin.comic-ptero .callout{animation:comic-admin-box .4s ease-out both}
+}
+
+
+/* ===== TOMBOL SAKLAR (toggle) untuk semua checkbox admin ===== */
+body.comic-admin.comic-ptero input[type=checkbox]{width:58px;min-width:58px;height:32px;border-radius:999px;background:#2a3346;border:3px solid #080b10;box-shadow:3px 3px 0 #080b10;transition:background .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .15s}
+body.comic-admin.comic-ptero input[type=checkbox]::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#aab6c8;border:2px solid #080b10;box-sizing:border-box;transform:translateX(0);transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .25s,width .15s;pointer-events:none}
+body.comic-admin.comic-ptero input[type=checkbox]:hover{transform:translateY(-2px) rotate(-1.5deg);box-shadow:4px 5px 0 #080b10}
+body.comic-admin.comic-ptero input[type=checkbox]:active::after{width:26px}
+body.comic-admin.comic-ptero input[type=checkbox]:checked{background:var(--cg)}
+body.comic-admin.comic-ptero input[type=checkbox]:checked::after{transform:translateX(26px);background:#fff}
+body.comic-admin.comic-ptero input[type=checkbox]:checked:active::after{transform:translateX(20px)}
+body.comic-admin.comic-ptero label:has(input[type=checkbox]:checked){color:#fff}
+
+
+/* ===== V5 KOMIK GELAP: tanpa efek terang, teks selalu kontras ===== */
+:root{--d-ink:#05070c;--d-panel:#171d2c;--d-panel2:#1e2538;--d-yellow:#ffc928;--d-pink:#ff6b9a;--d-cyan:#4fd8f2;--d-green:#3be3a0;--d-violet:#a995ff;--d-orange:#ff9a3d;--d-red:#ff6b7a}
+html body.comic-ptero{background-color:#0b0e16!important;background-image:radial-gradient(#ffffff0b 1.2px,transparent 1.6px)!important;background-size:14px 14px!important;background-position:0 0!important}
+
+/* Label / badge: isi gelap + teks berwarna terang (tidak pernah putih di atas putih) */
+html body.comic-ptero .label,html body.comic-ptero .badge{background:#2a3350!important;color:#e9eef8!important;border:2px solid var(--d-ink)!important;box-shadow:2px 2px 0 var(--d-ink)!important;text-shadow:none!important}
+html body.comic-ptero .label-default,html body.comic-ptero .bg-gray{background:#2a3350!important;color:#e9eef8!important}
+html body.comic-ptero .label-success,html body.comic-ptero .bg-green{background:#10382b!important;color:var(--d-green)!important}
+html body.comic-ptero .label-danger,html body.comic-ptero .bg-red{background:#411620!important;color:var(--d-red)!important}
+html body.comic-ptero .label-warning,html body.comic-ptero .label-primary,html body.comic-ptero .bg-yellow{background:#43360e!important;color:var(--d-yellow)!important}
+html body.comic-ptero .label-info,html body.comic-ptero .bg-aqua{background:#0e3440!important;color:var(--d-cyan)!important}
+
+/* Header box: gelap, garis warna di bawah judul */
+html body.comic-ptero .box>.box-header,html body.comic-ptero .panel>.panel-heading{background:linear-gradient(100deg,#1d2438,#161b2a)!important;border-bottom:4px solid var(--d-yellow)!important;border-radius:9px 9px 0 0!important;color:#f1f4fa!important}
+html body.comic-ptero .box>.box-header .box-title,html body.comic-ptero .box>.box-header small,html body.comic-ptero .box>.box-header label{color:#f1f4fa!important;text-shadow:2px 2px 0 var(--d-ink)!important}
+html body.comic-ptero .box>.box-header .fa,html body.comic-ptero .box>.box-header i{color:var(--d-yellow)!important}
+html body.comic-ptero .box-success>.box-header{border-bottom-color:var(--d-green)!important}
+html body.comic-ptero .box-danger>.box-header{border-bottom-color:var(--d-pink)!important}
+html body.comic-ptero .box-info>.box-header{border-bottom-color:var(--d-cyan)!important}
+html body.comic-ptero .box-warning>.box-header{border-bottom-color:var(--d-orange)!important}
+html body.comic-ptero .box-primary>.box-header{border-bottom-color:var(--d-violet)!important}
+
+/* Judul halaman: bayangan hitam saja */
+html body.comic-ptero .content-header>h1{color:var(--d-yellow)!important;text-shadow:3px 3px 0 var(--d-ink),5px 5px 0 #000!important}
+html body.comic-ptero .content-header>h1>small{color:#b8c4d8!important;text-shadow:none!important}
+
+/* Tab: isi gelap, garis atas berwarna; tab aktif tetap kuning bawaan tema */
+html body.comic-ptero .nav-tabs>li>a{background:#1b2033!important;color:#e2e8f3!important;border:3px solid var(--d-ink)!important;border-top:5px solid var(--d-yellow)!important;filter:none!important}
+html body.comic-ptero .nav-tabs>li:nth-child(6n+2)>a{border-top-color:var(--d-cyan)!important}
+html body.comic-ptero .nav-tabs>li:nth-child(6n+3)>a{border-top-color:var(--d-pink)!important}
+html body.comic-ptero .nav-tabs>li:nth-child(6n+4)>a{border-top-color:var(--d-green)!important}
+html body.comic-ptero .nav-tabs>li:nth-child(6n+5)>a{border-top-color:var(--d-violet)!important}
+html body.comic-ptero .nav-tabs>li:nth-child(6n)>a{border-top-color:var(--d-orange)!important}
+html body.comic-ptero .nav-tabs>li.active>a,html body.comic-ptero .nav-tabs>li.active>a:hover{background:var(--d-yellow)!important;color:#101820!important;box-shadow:3px 3px 0 var(--d-ink)}
+html body.comic-ptero .nav-tabs>li>a:hover{transform:translateY(-3px)}
+
+/* Alert: panel gelap, garis tebal berwarna, teks terang */
+html body.comic-ptero .alert{background:#1b2033!important;color:#eef2fa!important;border:3px solid var(--d-ink)!important;border-left:10px solid var(--d-cyan)!important;box-shadow:4px 4px 0 var(--d-ink)!important;font-weight:700}
+html body.comic-ptero .alert a{color:var(--d-yellow)!important;text-decoration:underline}
+html body.comic-ptero .alert-success{border-left-color:var(--d-green)!important}
+html body.comic-ptero .alert-danger{border-left-color:var(--d-pink)!important}
+html body.comic-ptero .alert-warning{border-left-color:var(--d-yellow)!important}
+
+/* Sidebar admin: ikon berwarna di atas latar gelap */
+html body.comic-ptero .sidebar-menu>li:nth-child(6n+1)>a>.fa{color:var(--d-yellow)}
+html body.comic-ptero .sidebar-menu>li:nth-child(6n+2)>a>.fa{color:var(--d-cyan)}
+html body.comic-ptero .sidebar-menu>li:nth-child(6n+3)>a>.fa{color:var(--d-pink)}
+html body.comic-ptero .sidebar-menu>li:nth-child(6n+4)>a>.fa{color:var(--d-green)}
+html body.comic-ptero .sidebar-menu>li:nth-child(6n+5)>a>.fa{color:var(--d-violet)}
+html body.comic-ptero .sidebar-menu>li:nth-child(6n)>a>.fa{color:var(--d-orange)}
+html body.comic-ptero .sidebar-menu>li.active>a>.fa{color:#0d1924}
+
+/* Tabel & kartu server */
+html body.comic-ptero .table>thead>tr>th{background:#141a29!important;color:var(--d-yellow)!important;border-bottom:3px solid var(--d-ink)!important}
+html body.comic-ptero .comic-server-card:nth-child(3n+1){border-left:10px solid var(--d-yellow)!important}
+html body.comic-ptero .comic-server-card:nth-child(3n+2){border-left:10px solid var(--d-pink)!important}
+html body.comic-ptero .comic-server-card:nth-child(3n){border-left:10px solid var(--d-cyan)!important}
+
+
+/* ===== V6 HALAMAN LOGIN: kartu gelap, teks kontras, animasi ===== */
+html body.comic-ptero form [class~="bg-white"],html body.comic-ptero .comic-login-card{background:#171d2c!important;color:#e9eef8!important;border:4px solid #05070c!important;border-radius:16px!important;box-shadow:8px 8px 0 #000!important}
+html body.comic-ptero .comic-login-card label,html body.comic-ptero form [class~="bg-white"] label{color:#ffd75a!important;font-weight:700!important;letter-spacing:1.5px!important;text-shadow:2px 2px 0 #05070c}
+html body.comic-ptero .comic-login-card p,html body.comic-ptero .comic-login-card span,html body.comic-ptero .comic-login-card div,html body.comic-ptero form [class~="bg-white"] p{color:#d6deec}
+html body.comic-ptero .comic-login-card input{background:#0d121d!important;color:#f3f6fc!important;border:3px solid #05070c!important;caret-color:#ffc928}
+html body.comic-ptero .comic-login-card input::placeholder{color:#7f8da6!important}
+html body.comic-ptero .comic-login-card input:focus{border-color:#ffc928!important;outline:none!important;box-shadow:4px 4px 0 #000!important}
+html body.comic-ptero .comic-login-card a,html body.comic-ptero form [class~="bg-white"] a{color:#4fd8f2!important;font-weight:700;letter-spacing:1px;text-decoration:none;background-image:linear-gradient(#4fd8f2,#4fd8f2);background-repeat:no-repeat;background-position:0 100%;background-size:0 3px;transition:background-size .25s ease}
+html body.comic-ptero .comic-login-card a:hover{background-size:100% 3px}
+html body.comic-ptero .comic-login-card [class*="text-red"],html body.comic-ptero .comic-login-card [role="alert"]{color:#ff8a98!important}
+html body.comic-ptero.comic-login h2,html body.comic-ptero.comic-login h1{color:#ffc928!important;text-shadow:3px 3px 0 #05070c,5px 5px 0 #000!important}
+html body.comic-ptero.comic-login{color:#aebbd0}
+
+@media(prefers-reduced-motion:no-preference){
+ @keyframes comic-login-pop{0%{opacity:0;transform:translateY(40px) scale(.9) rotate(-2deg)}60%{opacity:1;transform:translateY(-6px) scale(1.02) rotate(.6deg)}100%{opacity:1;transform:none}}
+ @keyframes comic-login-title{0%{opacity:0;transform:translateX(-60px) skewX(-10deg)}70%{transform:translateX(8px) skewX(3deg)}100%{opacity:1;transform:none}}
+ @keyframes comic-login-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+ @keyframes comic-dino-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+ @keyframes comic-dots-drift{to{background-position:56px 56px}}
+ @keyframes comic-btn-wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-1.5deg)}75%{transform:rotate(1.5deg)}}
+ html body.comic-ptero.comic-login{animation:comic-dots-drift 14s linear infinite}
+ html body.comic-ptero.comic-login h2,html body.comic-ptero.comic-login h1{animation:comic-login-title .7s cubic-bezier(.34,1.56,.64,1) both}
+ html body.comic-ptero .comic-login-card{animation:comic-login-pop .8s cubic-bezier(.34,1.56,.64,1) .1s both}
+ html body.comic-ptero .comic-login-card img{animation:comic-dino-float 3.6s ease-in-out infinite;transform-origin:50% 90%}
+ html body.comic-ptero .comic-login-card label,html body.comic-ptero .comic-login-card input,html body.comic-ptero .comic-login-card button,html body.comic-ptero .comic-login-card a{animation:comic-login-rise .5s ease both;animation-delay:calc(.35s + var(--ci,0)*.07s)}
+ html body.comic-ptero .comic-login-card button[type="submit"]:hover{animation:comic-btn-wiggle .35s ease 2}
+}
+
+
+/* ===== V9: login tidak bisa digeser, tanpa efek cahaya, menu titik tiga berwarna ===== */
+html:has(body.comic-login),body.comic-login{overflow-x:clip!important;max-width:100%!important}
+body.comic-login{overflow-x:hidden!important;position:relative}
+body.comic-login .comic-login-card{max-width:100%!important;box-sizing:border-box!important}
+body.comic-login .comic-login-card input,body.comic-login .comic-login-card button{max-width:100%!important;box-sizing:border-box!important}
+.grecaptcha-badge{width:70px!important;box-shadow:none!important;overflow:hidden!important;opacity:.9}
+.grecaptcha-badge:hover,.grecaptcha-badge:focus-within{width:70px!important}
+
+/* matikan semua efek cahaya: glow, ping, shine, ripple, pulsa */
+html body.comic-ptero .comic-more{animation:none!important}
+html body.comic-ptero .comic-drawer-item.active{animation-name:comic-slide-spring!important;animation-iteration-count:1!important;filter:none!important}
+html body.comic-ptero .comic-hero::after{display:none!important;animation:none!important}
+html body.comic-ptero .comic-gate-done.ready,html body.comic-ptero .comic-welcome-go{animation:none!important}
+html body.comic-ptero :is(.comic-primary,.comic-success,.comic-danger,.btn-primary,.btn-success,.btn-danger,.btn-info,.comic-admin-back>a):is(:hover,:focus)::after,html body.comic-ptero .comic-admin-back>a::after{animation:none!important;display:none!important}
+html body.comic-ptero .comic-ripple{display:none!important}
+html body.comic-ptero *{filter:none!important}
+html body.comic-ptero .comic-drawer-backdrop,html body.comic-ptero .comic-admin-backdrop{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+
+/* Bar tab Account dipindah ke menu titik tiga (layar kecil) */
+@media(max-width:900px){html body.comic-ptero .comic-account-nav{display:none!important}}
+
+/* Ikon menu berwarna (datar, tanpa cahaya) */
+html body.comic-ptero .comic-drawer-item svg{box-sizing:content-box;width:22px;height:22px;padding:6px;border:3px solid #05070c;border-radius:11px;box-shadow:2px 2px 0 #05070c;color:#0b0f18;background:#f2b91d;flex:0 0 auto}
+html body.comic-ptero .comic-drawer-item[data-k=console] svg,html body.comic-ptero .comic-drawer-item[data-k=network] svg,html body.comic-ptero .comic-drawer-item[data-k=server] svg,html body.comic-ptero .comic-drawer-item[data-k=ptlc] svg{background:#2fb8d6}
+html body.comic-ptero .comic-drawer-item[data-k=files] svg,html body.comic-ptero .comic-drawer-item[data-k=home] svg,html body.comic-ptero .comic-drawer-item[data-k=dashboard] svg{background:#f2b91d}
+html body.comic-ptero .comic-drawer-item[data-k=databases] svg,html body.comic-ptero .comic-drawer-item[data-k=settings] svg,html body.comic-ptero .comic-drawer-item[data-k=key] svg{background:#8f7ae8}
+html body.comic-ptero .comic-drawer-item[data-k=schedules] svg,html body.comic-ptero .comic-drawer-item[data-k=startup] svg,html body.comic-ptero .comic-drawer-item[data-k=ptla] svg{background:#ee8a2b}
+html body.comic-ptero .comic-drawer-item[data-k=users] svg,html body.comic-ptero .comic-drawer-item[data-k=account] svg,html body.comic-ptero .comic-drawer-item[data-k=search] svg{background:#e8588a}
+html body.comic-ptero .comic-drawer-item[data-k=backups] svg,html body.comic-ptero .comic-drawer-item[data-k=activity] svg,html body.comic-ptero .comic-drawer-item[data-k=ssh] svg{background:#2fc088}
+html body.comic-ptero .comic-drawer-item[data-k=admin] svg,html body.comic-ptero .comic-drawer-item[data-k=logout] svg{background:#e5525f}
+html body.comic-ptero .comic-drawer-item.active{background:#262d44;border-color:#f2b91d;color:#f3f6fc}
+
+
+/* ===== V10: menu admin tanpa efek cahaya, ikon berwarna datar ===== */
+html body.comic-admin.comic-ptero .sidebar-menu>li.active>a,html body.comic-admin.comic-ptero .sidebar-menu>li>a,html body.comic-admin .comic-admin-search,html body.comic-admin .sidebar-toggle,html body.comic-admin .main-header .navbar .sidebar-toggle,html body.comic-admin.comic-ptero .comic-admin-home{animation:none!important;filter:none!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li>a::before,html body.comic-admin.comic-ptero .sidebar-menu>li>a::after{display:none!important;content:none!important;animation:none!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li>a,html body.comic-admin.comic-ptero .comic-admin-search,html body.comic-admin .sidebar-toggle{text-shadow:none!important}
+
+/* baris menu: gelap; yang aktif tetap gelap dengan garis kuning (bukan warna terang) */
+html body.comic-admin.comic-ptero .sidebar-menu>li.active>a:not(._a):not(._b){background:#262d44!important;color:#f6f7fb!important;border-color:#ffc928!important;box-shadow:3px 3px 0 #05070c!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li.comic-admin-back>a:not(._a):not(._b){background:#1b2033!important;color:#f6f7fb!important}
+
+/* ikon = kotak warna datar, ikon gelap di dalamnya */
+html body.comic-admin.comic-ptero .sidebar-menu>li>a>i,html body.comic-admin.comic-ptero .sidebar-menu>li>a>.fa,html body.comic-admin.comic-ptero .sidebar-menu>li.active>a>i,html body.comic-admin.comic-ptero .sidebar-menu>li.active>a>.fa{background:#f2b91d!important;color:#0b0f18!important;border:3px solid #05070c!important;box-shadow:2px 2px 0 #05070c!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li:nth-child(7n+2)>a>.fa{background:#2fb8d6!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li:nth-child(7n+3)>a>.fa{background:#e8588a!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li:nth-child(7n+4)>a>.fa{background:#2fc088!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li:nth-child(7n+5)>a>.fa{background:#8f7ae8!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li:nth-child(7n+6)>a>.fa{background:#ee8a2b!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li:nth-child(7n)>a>.fa{background:#e5525f!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li.comic-admin-back>a>i,html body.comic-admin.comic-ptero .sidebar-menu>li.comic-admin-back>a>.fa{background:#2fc088!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li[data-comic-security]>a>.fa,html body.comic-admin.comic-ptero .sidebar-menu>li[data-comic-ptlc]>a>.fa{background:#e5525f!important}
+html body.comic-admin.comic-ptero .sidebar-menu>li[data-comic-ptlc]>a>.fa{background:#2fb8d6!important}
+
+/* tombol header admin: datar */
+html body.comic-admin.comic-ptero .comic-admin-home{background:#2fc088!important;color:#0b0f18!important}
+html body.comic-admin .comic-admin-search{background:#262d44!important;color:#f6f7fb!important}
+
+/* === User Egg Changer modal === */
+body.comic-egg-open{overflow:hidden!important}
+.comic-egg-modal{position:fixed;inset:0;z-index:10050;background:rgba(2,6,12,.78);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:18px;animation:comicFadeIn .18s ease-out}
+.comic-egg-card{width:min(560px,100%);max-height:min(760px,calc(100vh - 36px));overflow:auto;background:#172235;border:4px solid #05080d;border-radius:18px;box-shadow:9px 9px 0 #05080d;padding:22px;color:#fff}
+.comic-egg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+.comic-egg-head strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:30px;line-height:1;text-transform:uppercase;letter-spacing:.5px;color:#f7ca45}
+.comic-egg-head span{display:block;margin-top:6px;font-size:13px;color:#c8d2e2}
+.comic-egg-close{width:42px;height:42px;flex:0 0 42px;border:3px solid #05080d!important;border-radius:12px!important;background:#0d1723!important;color:#f7ca45!important;font-size:27px!important;line-height:1!important;box-shadow:4px 4px 0 #05080d!important;cursor:pointer}
+.comic-egg-info{margin:0 0 18px;padding:13px 14px;border:2px solid #070b11;border-radius:12px;background:#223049;color:#e8edf5;font-size:13px;line-height:1.5}
+.comic-egg-card label{display:block;margin-bottom:7px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.5px}
+.comic-egg-select{display:block;width:100%;min-height:48px;padding:0 13px;background:#0f1928;color:#fff;border:3px solid #05080d;border-radius:12px;box-shadow:4px 4px 0 #05080d;outline:none;font-weight:700}
+.comic-egg-select:focus{border-color:#f7ca45}
+.comic-egg-desc{min-height:44px;margin-top:10px;padding:10px 12px;border-left:4px solid #26bd83;background:#111b2a;color:#bdc9d9;font-size:12px;line-height:1.45}
+.comic-egg-status{min-height:22px;margin-top:12px;font-size:13px;font-weight:800;color:#f7ca45}
+.comic-egg-status.success{color:#50d39b}.comic-egg-status.error{color:#ff6f7d}
+.comic-egg-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:14px}
+.comic-egg-cancel,.comic-egg-save{min-height:45px;padding:0 17px;border:3px solid #05080d!important;border-radius:12px!important;box-shadow:4px 4px 0 #05080d!important;font-weight:900!important;text-transform:uppercase;cursor:pointer}
+.comic-egg-cancel{background:#263247!important;color:#fff!important}.comic-egg-save{background:#f7ca45!important;color:#10151d!important}
+.comic-egg-save:disabled{opacity:.6;cursor:wait}
+@media(max-width:600px){.comic-egg-modal{align-items:flex-end;padding:10px}.comic-egg-card{width:100%;max-height:88vh;border-radius:18px 18px 10px 10px;padding:18px;box-shadow:6px 6px 0 #05080d}.comic-egg-head strong{font-size:26px}.comic-egg-actions{display:grid;grid-template-columns:1fr 1fr}.comic-egg-cancel,.comic-egg-save{padding:0 10px;font-size:12px}}
+
+
+/* ===== V10 Egg Changer: saklar ON/OFF + Nest checkbox touch-safe Android =====
+   Saklar aktivasi memakai label besar agar mudah ditap di Android/WebView.
+   Pilihan Nest tetap checkbox native untuk multi-select yang jelas dan stabil. */
+body.comic-admin.comic-ptero .comic-egg-enable-row{
+  display:block!important;min-height:58px;padding:6px 0 10px!important
+}
+body.comic-admin.comic-ptero .comic-egg-switch-control{
+  display:flex!important;align-items:center!important;gap:14px!important;width:100%!important;min-height:58px!important;
+  margin:0!important;padding:10px 12px!important;border:3px solid #080b10!important;border-radius:14px!important;
+  background:#171f31!important;box-shadow:4px 4px 0 #080b10!important;cursor:pointer!important;user-select:none!important;
+  -webkit-tap-highlight-color:transparent!important;touch-action:manipulation!important
+}
+body.comic-admin.comic-ptero .comic-egg-switch-input{
+  position:absolute!important;width:1px!important;min-width:1px!important;height:1px!important;margin:-1px!important;padding:0!important;
+  overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;
+  border:0!important;box-shadow:none!important;opacity:0!important;pointer-events:none!important
+}
+body.comic-admin.comic-ptero .comic-egg-switch-input::before,
+body.comic-admin.comic-ptero .comic-egg-switch-input::after{content:none!important;display:none!important}
+body.comic-admin.comic-ptero .comic-egg-switch-ui{
+  position:relative!important;display:inline-flex!important;align-items:center!important;flex:0 0 66px!important;width:66px!important;height:36px!important;
+  padding:0!important;border:3px solid #080b10!important;border-radius:999px!important;background:#303a4e!important;
+  box-shadow:3px 3px 0 #080b10!important;transition:background .2s ease,transform .15s ease!important
+}
+body.comic-admin.comic-ptero .comic-egg-switch-knob{
+  position:absolute!important;left:4px!important;top:4px!important;width:22px!important;height:22px!important;border:2px solid #080b10!important;
+  border-radius:50%!important;background:#c6cfdd!important;box-shadow:1px 1px 0 #080b10!important;
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1),background .2s ease!important
+}
+body.comic-admin.comic-ptero .comic-egg-switch-input:checked + .comic-egg-switch-ui{background:var(--cg)!important}
+body.comic-admin.comic-ptero .comic-egg-switch-input:checked + .comic-egg-switch-ui .comic-egg-switch-knob{transform:translateX(30px)!important;background:#fff!important}
+body.comic-admin.comic-ptero .comic-egg-switch-input:focus-visible + .comic-egg-switch-ui{outline:3px dashed var(--cy)!important;outline-offset:4px!important}
+body.comic-admin.comic-ptero .comic-egg-switch-control:active .comic-egg-switch-ui{transform:scale(.96)!important}
+body.comic-admin.comic-ptero .comic-egg-switch-copy{display:flex!important;flex-direction:column!important;gap:3px!important;min-width:0!important;color:#f3f6fc!important}
+body.comic-admin.comic-ptero .comic-egg-switch-copy b{font-size:16px!important;line-height:1.25!important;color:#f3f6fc!important}
+body.comic-admin.comic-ptero .comic-egg-switch-copy small{font-size:12px!important;line-height:1.4!important;color:#9eacc2!important;font-weight:600!important}
+
+body.comic-admin.comic-ptero .comic-egg-native-check{
+  -webkit-appearance:auto!important;
+  appearance:auto!important;
+  position:static!important;
+  display:inline-block!important;
+  width:26px!important;
+  min-width:26px!important;
+  height:26px!important;
+  margin:0 12px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:4px!important;
+  box-shadow:none!important;
+  background:initial!important;
+  transform:none!important;
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  opacity:1!important;
+  vertical-align:middle!important;
+  accent-color:var(--cg)!important;
+  z-index:2!important;
+}
+body.comic-admin.comic-ptero .comic-egg-native-check::before,
+body.comic-admin.comic-ptero .comic-egg-native-check::after{content:none!important;display:none!important}
+body.comic-admin.comic-ptero .comic-egg-native-check:hover,
+body.comic-admin.comic-ptero .comic-egg-native-check:active,
+body.comic-admin.comic-ptero .comic-egg-native-check:checked{transform:none!important;box-shadow:none!important;background:initial!important}
+body.comic-admin.comic-ptero .comic-egg-nest-option{
+  display:flex!important;align-items:center!important;min-height:72px!important;padding:12px 14px!important;cursor:pointer!important
+}
+body.comic-admin.comic-ptero .comic-egg-nest-option>label{
+  display:flex!important;align-items:center!important;flex:1!important;min-width:0!important;min-height:44px!important;margin:0!important;padding:0!important;cursor:pointer!important;user-select:none
+}
+body.comic-admin.comic-ptero .comic-egg-nest-option:has(.comic-egg-native-check:checked){
+  border-color:var(--cg)!important;box-shadow:4px 4px 0 #080b10,0 0 0 2px rgba(59,227,160,.18)!important
+}
+@supports not selector(:has(*)){
+  body.comic-admin.comic-ptero .comic-egg-nest-option{border-color:#080b10!important}
+}
+@media(max-width:600px){
+  body.comic-admin.comic-ptero .comic-egg-switch-control{padding:11px 10px!important;gap:11px!important}
+  body.comic-admin.comic-ptero .comic-egg-switch-ui{flex-basis:62px!important;width:62px!important;height:34px!important}
+  body.comic-admin.comic-ptero .comic-egg-switch-knob{width:20px!important;height:20px!important}
+  body.comic-admin.comic-ptero .comic-egg-switch-input:checked + .comic-egg-switch-ui .comic-egg-switch-knob{transform:translateX(28px)!important}
+  body.comic-admin.comic-ptero .comic-egg-switch-copy b{font-size:15px!important}
+}
+
+
+
+/* Uploaded global panel background. Inline background image is applied by comic.js with !important. */
+html body.comic-ptero.comic-has-background{background-color:#080b10!important}
+.comic-background-preview{display:block;width:min(100%,720px);max-height:360px;object-fit:cover;border:3px solid var(--comic-black);border-radius:14px;box-shadow:4px 4px 0 var(--comic-black);margin:10px 0 14px}
+body.comic-ptero.comic-has-background .content-wrapper,body.comic-ptero.comic-has-background .wrapper,body.comic-ptero.comic-has-background .right-side,body.comic-ptero.comic-has-background #app,body.comic-ptero.comic-has-background #app>[class~='bg-neutral-900'],body.comic-ptero.comic-has-background #app>div>[class~='bg-neutral-900']{background-color:transparent!important}
+
+/* ===== V12: Compact File Manager — lebih rapat agar background komik tetap terlihat ===== */
+@media (max-width:768px){
+  /* Bar tombol file manager tetap nyaman disentuh, tetapi tidak terlalu tinggi/renggang. */
+  html body.comic-ptero [class*="manager_actions"]{
+    gap:8px!important;
+    row-gap:8px!important;
+    margin-top:8px!important;
+    margin-bottom:10px!important;
+  }
+  html body.comic-ptero [class*="manager_actions"] button{
+    min-height:44px!important;
+    height:auto!important;
+    padding:7px 12px!important;
+    font-size:16px!important;
+    line-height:1.15!important;
+    border-radius:9px!important;
+    box-shadow:3px 3px 0 var(--comic-black)!important;
+  }
+
+  /* Folder/file dibuat lebih pendek dan jaraknya dirapatkan. */
+  html body.comic-ptero .comic-file,
+  html body.comic-ptero [class*="file_row"]{
+    min-height:52px!important;
+    height:auto!important;
+    margin-top:0!important;
+    margin-bottom:6px!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+    border-radius:11px!important;
+    box-shadow:3px 3px 0 var(--comic-black)!important;
+  }
+  html body.comic-ptero .comic-file a,
+  html body.comic-ptero [class*="file_row"] a{
+    min-height:48px!important;
+    padding-top:7px!important;
+    padding-bottom:7px!important;
+    line-height:1.2!important;
+  }
+  html body.comic-ptero .comic-file label,
+  html body.comic-ptero [class*="file_row"] label{
+    min-height:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+  html body.comic-ptero .comic-file button,
+  html body.comic-ptero [class*="file_row"] button{
+    min-height:40px!important;
+    height:40px!important;
+    padding:5px 9px!important;
+    box-shadow:none!important;
+  }
+  html body.comic-ptero .comic-file input[type="checkbox"],
+  html body.comic-ptero [class*="file_row"] input[type="checkbox"]{
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+}
+
+/* Desktop ikut sedikit dirapatkan tanpa mengubah layout utama. */
+@media (min-width:769px){
+  html body.comic-ptero .comic-file,
+  html body.comic-ptero [class*="file_row"]{
+    min-height:60px!important;
+    margin-bottom:9px!important;
+  }
+}
