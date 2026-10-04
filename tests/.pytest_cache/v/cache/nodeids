@@ -1,0 +1,15 @@
+[
+  "test_http.py::HTTP::test_asset_headers",
+  "test_http.py::HTTP::test_host_and_origin",
+  "test_http.py::HTTP::test_private_api_and_source",
+  "test_safety.py::Safety::test_backups_require_digest",
+  "test_safety.py::Safety::test_license_rejection",
+  "test_safety.py::Safety::test_requested_theme_features_present",
+  "test_safety.py::Safety::test_secret_redaction_and_argv",
+  "test_safety.py::Safety::test_tar_traversal",
+  "test_safety.py::Safety::test_theme_idempotent_and_reversible",
+  "test_safety.py::Safety::test_validation",
+  "test_safety.py::Safety::test_worker_failure_stops_remaining_steps",
+  "test_safety.py::Safety::test_wrong_system_refused_without_commands",
+  "test_safety.py::test_egg_changer_mobile_switch_and_nest_touch_safe"
+]
