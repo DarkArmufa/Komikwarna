@@ -186,9 +186,58 @@ function setupClientEggChanger(){
   .catch(()=>{state.loading=false;state.data={enabled:false};});
 }
 
+
+function updatePageClass(){
+ [...document.body.classList].forEach(c=>{if(c.startsWith('comic-page-'))document.body.classList.remove(c);});
+ let page='dashboard';
+ if(location.pathname==='/')page='dashboard';
+ else if(/^\/server\/[^/]+\/?$/.test(location.pathname))page='console';
+ else {
+  const m=location.pathname.match(/^\/server\/[^/]+\/([^/?#]+)/);
+  if(m&&m[1])page=m[1].toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  else if(location.pathname.startsWith('/account'))page='account';
+  else if(location.pathname.startsWith('/admin'))page='admin';
+  else page=(location.pathname.split('/').filter(Boolean).pop()||'page').toLowerCase().replace(/[^a-z0-9]+/g,'-');
+ }
+ document.body.classList.add('comic-page-'+page);
+}
+function enhanceConsoleLayout(){
+ document.querySelectorAll('#app input, #app textarea').forEach(el=>{
+  const ph=((el.getAttribute('placeholder')||'')+' '+(el.getAttribute('aria-label')||'')).toLowerCase();
+  if(/type a command|command/.test(ph))el.classList.add('comic-command-input');
+ });
+ const terms=[...document.querySelectorAll('.xterm')];
+ terms.forEach(term=>{
+  let wrap=term;
+  for(let i=0;i<6&&wrap&&wrap!==document.body;i++,wrap=wrap.parentElement){
+   if(wrap.querySelector('.xterm')&&wrap.querySelector('.xterm-viewport')){wrap.classList.add('comic-console-card');break;}
+  }
+ });
+ document.querySelectorAll('#app div,#app section').forEach(el=>{
+  const kids=[...el.children].filter(n=>/^(BUTTON|A)$/.test(n.tagName));
+  if(kids.length<2||kids.length>5)return;
+  const texts=kids.map(n=>n.textContent.trim().toLowerCase());
+  if(texts.some(t=>/^start(\s|$)/.test(t))&&texts.some(t=>/^restart(\s|$)/.test(t))){
+   el.classList.add('comic-console-actions');
+   kids.forEach(btn=>{
+    const t=btn.textContent.trim().toLowerCase();
+    if(/^start(\s|$)/.test(t))btn.classList.add('comic-console-btn-start');
+    else if(/^restart(\s|$)/.test(t))btn.classList.add('comic-console-btn-restart');
+    else if(/^(stop|kill)(\s|$)/.test(t))btn.classList.add('comic-console-btn-stop');
+   });
+  }
+ });
+ if(/^\/server\/[^/]+/.test(location.pathname)&&!document.querySelector('.comic-quick-menu')){
+  const btn=document.createElement('button');btn.type='button';btn.className='comic-quick-menu';
+  btn.setAttribute('aria-label','Menu cepat');
+  btn.innerHTML=svgI('dashboard',18)+'<span>MENU</span>';
+  btn.addEventListener('click',openDrawer);
+  document.body.append(btn);
+ }
+}
 const neutrals=new Set(['rgb(63, 77, 90)','rgb(51, 64, 76)','rgb(81, 95, 108)','rgb(31, 41, 51)']);
 function annotate(){
- queued=false;document.body.classList.add('comic-ptero');applyPanelBackground();adminEnhance();loginEnhance();restrictMenu();
+ queued=false;document.body.classList.add('comic-ptero');updatePageClass();applyPanelBackground();adminEnhance();loginEnhance();restrictMenu();
  const logo=document.getElementById('logo');
  if(logo){const row=logo.parentElement;row?.classList.add('comic-header-row');const head=row?.parentElement;head?.classList.add('comic-header');
    setupDrawer(logo);updateBrand(logo.querySelector('a'));hero();notice();gate();
@@ -231,12 +280,17 @@ function annotate(){
  });
  document.querySelectorAll('[class*="file_row"]').forEach(el=>el.classList.add('comic-file'));
  document.querySelectorAll('button').forEach(b=>{if(b.closest('.xterm'))return;const t=b.textContent.trim().toLowerCase();
-   if(/^(delete|remove|kill|hapus|hapus permanen)(\s|$)/.test(t))b.classList.add('comic-danger');
+   if(/^(delete|remove|kill|stop|hapus|hapus permanen)(\s|$)/.test(t))b.classList.add('comic-danger');
    else if(/^(start|upload|confirm|yes|ya|mulai)(\s|$)/.test(t))b.classList.add('comic-success');
    else if(/^(create|new file|save|restart|buat|simpan)(\s|$)/.test(t))b.classList.add('comic-primary');
+   if(/^start(\s|$)/.test(t))b.classList.add('comic-console-btn-start');
+   else if(/^restart(\s|$)/.test(t))b.classList.add('comic-console-btn-restart');
+   else if(/^(stop|kill)(\s|$)/.test(t))b.classList.add('comic-console-btn-stop');
  });
  setupClientEggChanger();
+ enhanceConsoleLayout();
 }
+
 
 // ---- Mobile three-dot menu + drawer (re-uses original links; clicks are forwarded so React handlers stay intact) ----
 const I={console:'<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>',files:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',databases:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',schedules:'<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14.4c2.1.7 3.5 2.6 3.5 5.6"/>',backups:'<rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01"/>',network:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',startup:'<path d="M5 15c-1.5 1.2-2 4-2 6 2 0 4.8-.5 6-2M14 4c3-1.5 6-1.5 6-1.5s0 3-1.5 6l-6 6-4-4zM9 13l-3-.5 2-3.5 3 .5M11 15l.5 3 3.5-2-.5-3"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>',activity:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h6"/>',home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',dashboard:'<path d="M12 2 2 7l10 5 10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',account:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>',admin:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',server:'<rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01"/>',close:'<path d="M6 6l12 12M18 6 6 18"/>'};
